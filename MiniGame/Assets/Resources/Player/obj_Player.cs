@@ -8,29 +8,32 @@ public class obj_Player : MonoBehaviour
     Vector3 pos;
     Transform player;
     float gravity_power = -0.02f;
-    const int KABE_LEFT = -4;
-    bool stop = false;
+    bool stop_left = false;
+    bool stop_right = false;
+    bool stop_back = false;
+    bool stop_front = false;
 
     void Start( ) {
-        //GameObject.Find("Player/player").transform.position = new Vector3( player.x, player.y, player.z);
 
     }
 
     // Update is called once per frame
     void Update( ) {
+        setup( );
         gravity( );
         collisionJudgement( );
         move( );
     }
 
-    void gravity( ){
+    void setup( ) {
         player = this.transform;
         pos = player.position;
+    }
 
-        Vector3 ground_pos = new Vector3(0.0f, 0.0f, 0.0f);
+    void gravity( ){
+        Vector3 ground_pos = new Vector3( 0.0f, 0.0f, 0.0f );
         float now_pos_y = pos.y;
         float ground_get_pos = ground_pos.y;
-
         if ( now_pos_y <= ground_get_pos ) {
             transform.Translate( 0.0f, 0.0f, 0.0f );
         } else {
@@ -40,28 +43,45 @@ public class obj_Player : MonoBehaviour
     }
         
     void move( ){
-        if ( Input.GetKey( KeyCode.UpArrow ) ) {
-            transform.Translate( 0f, 0f, 0.1f );
+        if ( Input.GetKey( KeyCode.UpArrow ) && stop_front == false ) {
+            transform.Translate( 0f, 0f, 0.05f );
         }
-        if ( Input.GetKey( KeyCode.DownArrow ) ) {
-            transform.Translate( 0.0f, 0f, -0.1f );
+        if ( Input.GetKey( KeyCode.DownArrow ) && stop_back == false ) {
+            transform.Translate( 0.0f, 0f, -0.05f );
         }
-        if ( Input.GetKey( KeyCode.LeftArrow ) && stop == false) {
-            transform.Translate( -0.1f, 0f, 0f );
+        if ( Input.GetKey( KeyCode.LeftArrow ) && stop_left == false ) {
+            transform.Translate( -0.05f, 0f, 0f );
         }
-        if ( Input.GetKey( KeyCode.RightArrow )  ) {
-            transform.Translate( 0.1f, 0f, 0f );
+        if ( Input.GetKey( KeyCode.RightArrow ) && stop_right == false ) {
+            transform.Translate( 0.05f, 0f, 0f );
         }
     }
-    void collisionJudgement( ){
-        player = this.transform;
-        pos = player.position;
+    void collisionJudgement( ) {
+        GameObject left_wall   = GameObject.FindGameObjectWithTag( "LeftWall" );
+        GameObject right_wall = GameObject.FindGameObjectWithTag( "RightWall" );
+        GameObject back_wall = GameObject.FindGameObjectWithTag( "BackWall" );
+        GameObject front_wall = GameObject.FindGameObjectWithTag( "FrontWall" );
+        float now_pos_z = pos.z;
         float now_pos_x = pos.x;
-        Debug.Log( "pos_x", player );
-        if( now_pos_x <= KABE_LEFT ){
-            stop = true;
+        if ( left_wall.transform.position.x + 1.0f >= now_pos_x ) {
+            stop_left = true;
         } else {
-            stop = false;
+            stop_left = false;
+        }
+        if( right_wall.transform.position.x - 2.0f <= now_pos_x ) {
+            stop_right = true;
+        } else {
+            stop_right = false;
+        }
+        if( back_wall.transform.position.z + 1.0f >= now_pos_z ) {
+            stop_back = true;
+        }else{
+            stop_back = false;
+        }
+        if( front_wall.transform.position.z - 2.0f <= now_pos_z ) {
+            stop_front = true;
+        } else {
+            stop_front = false;
         }
     }
 }
