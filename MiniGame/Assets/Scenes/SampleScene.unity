@@ -372,6 +372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b986a4f1d0cf4d345b9252f5024bf5f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  clone_position: {x: 1, y: 30, z: 0}
 --- !u!4 &1765717446
 Transform:
   m_ObjectHideFlags: 0

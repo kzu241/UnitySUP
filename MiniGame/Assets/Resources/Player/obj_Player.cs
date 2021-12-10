@@ -5,11 +5,12 @@ using UnityEngine;
 public class obj_Player : MonoBehaviour
 {
     // Start is called before the first frame update
-    Vector3 player_pos = new Vector3( 0.0f, 0.0f, 0.0f );
-    Vector3 ground_pos = new Vector3( 0.0f, 0.0f, 0.0f );
-    Vector3 now_pos;
+    Vector3 pos;
     Transform player;
     float gravity_power = -0.02f;
+    const int KABE_LEFT = -4;
+    bool stop = false;
+
     void Start( ) {
         //GameObject.Find("Player/player").transform.position = new Vector3( player.x, player.y, player.z);
 
@@ -18,15 +19,19 @@ public class obj_Player : MonoBehaviour
     // Update is called once per frame
     void Update( ) {
         gravity( );
+        collisionJudgement( );
         move( );
     }
 
     void gravity( ){
         player = this.transform;
-        now_pos = player.position;
-        float pos_y = now_pos.y;
+        pos = player.position;
+
+        Vector3 ground_pos = new Vector3(0.0f, 0.0f, 0.0f);
+        float now_pos_y = pos.y;
         float ground_get_pos = ground_pos.y;
-        if ( pos_y <= ground_get_pos ) {
+
+        if ( now_pos_y <= ground_get_pos ) {
             transform.Translate( 0.0f, 0.0f, 0.0f );
         } else {
             transform.Translate( 0.0f, gravity_power, 0.0f );
@@ -41,11 +46,22 @@ public class obj_Player : MonoBehaviour
         if ( Input.GetKey( KeyCode.DownArrow ) ) {
             transform.Translate( 0.0f, 0f, -0.1f );
         }
-        if ( Input.GetKey( KeyCode.LeftArrow ) ) {
+        if ( Input.GetKey( KeyCode.LeftArrow ) && stop == false) {
             transform.Translate( -0.1f, 0f, 0f );
         }
-        if ( Input.GetKey( KeyCode.RightArrow ) ) {
+        if ( Input.GetKey( KeyCode.RightArrow )  ) {
             transform.Translate( 0.1f, 0f, 0f );
+        }
+    }
+    void collisionJudgement( ){
+        player = this.transform;
+        pos = player.position;
+        float now_pos_x = pos.x;
+        Debug.Log( "pos_x", player );
+        if( now_pos_x <= KABE_LEFT ){
+            stop = true;
+        } else {
+            stop = false;
         }
     }
 }
