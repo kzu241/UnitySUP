@@ -23,6 +23,7 @@ public class obj_Player : MonoBehaviour
         gravity( );
         collisionJudgement( );
         move( );
+        //removeItem( );
     }
 
     void setup( ) {
@@ -83,5 +84,17 @@ public class obj_Player : MonoBehaviour
         } else {
             stop_front = false;
         }
+    }
+    void removeItem( ) {
+        GameObject item = GameObject.FindGameObjectWithTag( "Item" );
+        float now_pos_x = pos.x;
+        float coll_x = item.transform.position.x - now_pos_x;
+		if ( coll_x < 0 ) {
+            coll_x *= -1;
+		    if ( coll_x <= 200 ) {
+                Destroy( item ); //itemを消したときにエラーが出る。
+            }
+		}
+        
     }
 }

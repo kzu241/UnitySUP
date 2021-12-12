@@ -8,6 +8,7 @@ TagManager:
   - FrontWall
   - RightWall
   - LeftWall
+  - Item
   layers:
   - Default
   - TransparentFX
