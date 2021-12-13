@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class obj_Player : MonoBehaviour
-{
-    // Start is called before the first frame update
+public class obj_Player : MonoBehaviour {
     Vector3 pos;
     Transform player;
+
+    public GameObject item;
+
     float gravity_power = -0.02f;
     bool stop_left = false;
     bool stop_right = false;
     bool stop_back = false;
     bool stop_front = false;
+    bool judge_coll_x = false;
+    bool judge_coll_z = false;
+
+    // Start is called before the first frame update
 
     void Start( ) {
 
@@ -76,7 +81,7 @@ public class obj_Player : MonoBehaviour
         }
         if( back_wall.transform.position.z + 1.0f >= now_pos_z ) {
             stop_back = true;
-        }else{
+        } else {
             stop_back = false;
         }
         if( front_wall.transform.position.z - 2.0f <= now_pos_z ) {
@@ -88,9 +93,25 @@ public class obj_Player : MonoBehaviour
     void removeItem( ) {
         GameObject item = GameObject.FindGameObjectWithTag( "Item" );
         float now_pos_x = pos.x;
-        float coll_x = item.transform.position.x - now_pos_x;
-		if( coll_x <= 0 ) {
+        float now_pos_z = pos.z;
+        float item_pos_x = item.transform.position.x;
+        float item_pos_z = item.transform.position.z;
+        float coll_x = item_pos_x - now_pos_x;
+        float coll_z = item_pos_z - now_pos_z;
+
+        if( coll_z <= 1.0f && coll_z >= -1.0f ){
+            judge_coll_z = true;
+        } else {
+            judge_coll_z = false;
+        }
+		if ( coll_x <= 1.0f && coll_x >= -1.0f ) {
+			judge_coll_x = true;
+		} else {
+            judge_coll_x = false;
+        }
+
+		if ( judge_coll_z && judge_coll_x ){
             Destroy( item ); //itemを消したときにエラーが出る。
-		}
+        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class obj_createItem : MonoBehaviour {
     public GameObject item;
-    Vector3 item_position = new Vector3( 5.0f, 0.5f, 0f );
+    Vector3 item_position = new Vector3( 5.0f, 0f, 5f );
 
         Quaternion rotation = Quaternion.Euler(0, 0, 45);
     void Start( ) {
@@ -15,5 +15,9 @@ public class obj_createItem : MonoBehaviour {
         // Update is called once per frame
         void Update( ) {
         
+    }
+
+    public void destroyItem(){
+        Destroy( item );
     }
 }
