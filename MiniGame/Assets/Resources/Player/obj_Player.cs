@@ -23,7 +23,7 @@ public class obj_Player : MonoBehaviour
         gravity( );
         collisionJudgement( );
         move( );
-        //removeItem( );
+        removeItem( );
     }
 
     void setup( ) {
