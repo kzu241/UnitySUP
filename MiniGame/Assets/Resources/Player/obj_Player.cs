@@ -44,16 +44,16 @@ public class obj_Player : MonoBehaviour
     }
         
     void move( ){
-        if ( Input.GetKey( KeyCode.UpArrow ) && stop_front == false ) {
+        if ( Input.GetKey( KeyCode.UpArrow ) && !stop_front ) {
             transform.Translate( 0f, 0f, 0.05f );
         }
-        if ( Input.GetKey( KeyCode.DownArrow ) && stop_back == false ) {
+        if ( Input.GetKey( KeyCode.DownArrow ) && !stop_back ) {
             transform.Translate( 0.0f, 0f, -0.05f );
         }
-        if ( Input.GetKey( KeyCode.LeftArrow ) && stop_left == false ) {
+        if ( Input.GetKey( KeyCode.LeftArrow ) && !stop_left ) {
             transform.Translate( -0.05f, 0f, 0f );
         }
-        if ( Input.GetKey( KeyCode.RightArrow ) && stop_right == false ) {
+        if ( Input.GetKey( KeyCode.RightArrow ) && !stop_right ) {
             transform.Translate( 0.05f, 0f, 0f );
         }
     }
@@ -89,12 +89,8 @@ public class obj_Player : MonoBehaviour
         GameObject item = GameObject.FindGameObjectWithTag( "Item" );
         float now_pos_x = pos.x;
         float coll_x = item.transform.position.x - now_pos_x;
-		if ( coll_x < 0 ) {
-            coll_x *= -1;
-		    if ( coll_x <= 200 ) {
-                Destroy( item ); //itemを消したときにエラーが出る。
-            }
+		if( coll_x <= 0 ) {
+            Destroy( item ); //itemを消したときにエラーが出る。
 		}
-        
     }
 }
