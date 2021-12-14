@@ -2,26 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class obj_Camera : MonoBehaviour
-{
-    private GameObject player;
-    private Vector3 now_camera_pos;
-
-    GameObject main_camera;
-    Vector3 camera_pos = new Vector3( 5.0f, 15.0f, -13.0f ) ;
-    Quaternion rotation = Quaternion.Euler( 50.0f, 0.0f, 0.0f );
-    // Use this for initialization
+public class obj_Camera : MonoBehaviour {
+    public GameObject player;
+    Vector3 now_camera_pos;
+    // Start is called before the first frame update
     void Start( ) {
-        main_camera = (GameObject)Resources.Load( "Camera/Main Camera" );
-        Instantiate( main_camera, camera_pos, rotation );
         player = GameObject.FindGameObjectWithTag( "Player" );
     }
 
+    // Update is called once per frame
     void Update( ) {
-        if( player == null ){
-            return;
-        }
-        now_camera_pos = player.transform.position;
-        camera_pos = now_camera_pos;
+        //if ( player == null ) {
+        //    return;
+        //}
+        now_camera_pos.z = player.transform.position.z - 15.0f;
+        now_camera_pos.x = player.transform.position.x;
+        now_camera_pos.y = player.transform.position.y + 15.0f;
+        this.transform.position = now_camera_pos;
+
+        //move_camera = this.transform;
+        //pos = move_camera.position;
+        //
+        //now_camera_pos = player.transform.position;
+        //pos = now_camera_pos;
     }
 }
