@@ -17,7 +17,4 @@ public class obj_createItem : MonoBehaviour {
         
     }
 
-    public void destroyItem(){
-        Destroy( item );
-    }
 }
