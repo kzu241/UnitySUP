@@ -19,6 +19,7 @@ public class obj_Player : MonoBehaviour {
     // Start is called before the first frame update
 
     void Start( ) {
+        item = GameObject.FindGameObjectWithTag( "Item" );
 
     }
 
@@ -91,7 +92,9 @@ public class obj_Player : MonoBehaviour {
         }
     }
     void removeItem( ) {
-        GameObject item = GameObject.FindGameObjectWithTag( "Item" );
+        if( item == null ){ 
+            return;
+        }
         float now_pos_x = pos.x;
         float now_pos_z = pos.z;
         float item_pos_x = item.transform.position.x;
@@ -111,7 +114,7 @@ public class obj_Player : MonoBehaviour {
         }
 
 		if ( judge_coll_z && judge_coll_x ){
-            Destroy( item ); //itemを消したときにエラーが出る。
+            Destroy( item );
         }
     }
 }
