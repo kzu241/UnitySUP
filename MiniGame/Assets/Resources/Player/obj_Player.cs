@@ -9,6 +9,7 @@ public class obj_Player : MonoBehaviour {
     public GameObject item;
 
     float gravity_power = -0.02f;
+    float angle = 0;
     bool stop_left = false;
     bool stop_right = false;
     bool stop_back = false;
@@ -52,6 +53,7 @@ public class obj_Player : MonoBehaviour {
     void move( ){
         if ( Input.GetKey( KeyCode.UpArrow ) && !stop_front ) {
             transform.Translate( 0f, 0f, 0.05f );
+            animationPlayer( );
         }
         if ( Input.GetKey( KeyCode.DownArrow ) && !stop_back ) {
             transform.Translate( 0.0f, 0f, -0.05f );
@@ -116,5 +118,19 @@ public class obj_Player : MonoBehaviour {
 		if ( judge_coll_z && judge_coll_x ){
             Destroy( item );
         }
+    }
+	void animationPlayer( ) {
+        angle = 0.1f;
+        float x = pos.x;
+        float y = pos.y + 0.01f;
+        float z = pos.z;
+        Vector3 player_center = new Vector3( x, y, z );
+        var quaternion = Quaternion.Euler(new Vector3( angle, 0, 0 ) );
+        var matrix = Matrix4x4.Rotate(quaternion);
+        player_center = matrix.MultiplyPoint( player_center );
+        // 行列をつかってブロックを移動させるとともにブロック自身も回転させる
+        this.transform.position = player_center;
+        this.transform.rotation = Quaternion.AngleAxis( angle, new Vector3(1f, 0f, 0f ) );
+
     }
 }
