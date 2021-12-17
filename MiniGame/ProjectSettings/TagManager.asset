@@ -9,6 +9,7 @@ TagManager:
   - RightWall
   - LeftWall
   - Item
+  - Point
   layers:
   - Default
   - TransparentFX

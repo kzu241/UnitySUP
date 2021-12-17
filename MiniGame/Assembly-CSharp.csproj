@@ -60,9 +60,10 @@
     <Compile Include="Assets\Resources\Player\obj_Player.cs" />
     <Compile Include="Assets\Resources\Item\obj_item.cs" />
     <Compile Include="Assets\Resources\Stage\fld_Stage.cs" />
+    <Compile Include="Assets\Resources\Camera\obj_Camera.cs" />
     <Compile Include="Assets\Resources\Player\obj_createPlayer.cs" />
     <Compile Include="Assets\Resources\Item\obj_createItem.cs" />
-    <Compile Include="Assets\Resources\Camera\obj_Camera.cs" />
+    <Compile Include="Assets\point.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
