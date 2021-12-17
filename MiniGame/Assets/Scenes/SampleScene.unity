@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3558176059724353463, guid: cad23b74fa3d3f641828a9ec7caf21b6, type: 3}
-  clone_position: {x: 1, y: 30, z: 0}
+  clone_position: {x: 1, y: 1, z: 0}
 --- !u!4 &1765717446
 Transform:
   m_ObjectHideFlags: 0

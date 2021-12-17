@@ -10,8 +10,8 @@ public class obj_item : MonoBehaviour
     Transform item;
     // Update is called once per frame
     void Update( ) {
-        Quaternion y = Quaternion.AngleAxis(30.0f * Time.deltaTime, Vector3.up );
-        Quaternion rotate_y = y * transform.rotation;
+        Quaternion y = Quaternion.AngleAxis( 30.0f * Time.deltaTime, Vector3.up );
+        Quaternion rotate_y = y * this.transform.rotation;
         transform.rotation = rotate_y;
     }
 }

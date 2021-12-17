@@ -63,7 +63,7 @@
     <Compile Include="Assets\Resources\Camera\obj_Camera.cs" />
     <Compile Include="Assets\Resources\Player\obj_createPlayer.cs" />
     <Compile Include="Assets\Resources\Item\obj_createItem.cs" />
-    <Compile Include="Assets\point.cs" />
+    <Compile Include="Assets\move.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

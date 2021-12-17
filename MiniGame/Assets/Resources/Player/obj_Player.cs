@@ -18,13 +18,12 @@ public class obj_Player : MonoBehaviour {
     bool judge_coll_x = false;
     bool judge_coll_z = false;
 
-    float angle = 1.0f;
+    float angle = 1;
 
     // Start is called before the first frame update
 
     void Start( ) {
         item = GameObject.FindGameObjectWithTag( "Item" );
-
     }
 
     // Update is called once per frame
@@ -57,6 +56,7 @@ public class obj_Player : MonoBehaviour {
         if ( Input.GetKey( KeyCode.UpArrow ) && !stop_front ) {
             transform.Translate( 0f, 0f, 0.05f );
             //animationPlayer( );
+
         }
         if ( Input.GetKey( KeyCode.DownArrow ) && !stop_back ) {
             transform.Translate( 0.0f, 0f, -0.05f );
@@ -124,6 +124,6 @@ public class obj_Player : MonoBehaviour {
     }
 	void animationPlayer( ) {
        Quaternion q = this.transform.rotation;
-       transform.Rotate( new Vector3( 0, 1, 0 ), angle );
+       transform.Rotate( new Vector3( 1, 0, 0 ), angle );
     }
 }
