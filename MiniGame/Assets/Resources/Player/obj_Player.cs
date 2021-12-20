@@ -11,8 +11,6 @@ public class obj_Player : MonoBehaviour {
     bool stop_right = false;
     bool stop_back = false;
     bool stop_front = false;
-    bool judge_coll_x = false;
-    bool judge_coll_z = false;
     float speed = 0f;
 
     void Start( ) {
@@ -103,23 +101,20 @@ public class obj_Player : MonoBehaviour {
         float now_pos_z = pos.z;
         float item_pos_x = item.transform.position.x;
         float item_pos_z = item.transform.position.z;
-        float coll_x = item_pos_x - now_pos_x;
-        float coll_z = item_pos_z - now_pos_z;
 
-        if ( coll_z <= 1.0f && coll_z >= -1.0f ){
-            judge_coll_z = true;
-        } else {
-            judge_coll_z = false;
-        }
-		if ( coll_x <= 1.0f && coll_x >= -1.0f ) {
-			judge_coll_x = true;
-		} else {
-            judge_coll_x = false;
-        }
+        float coll_x = conversion( item_pos_x - now_pos_x );
+        float coll_z = conversion( item_pos_z - now_pos_z );
 
-		if ( judge_coll_z && judge_coll_x ){
+        if ( coll_z <= 1.0f && coll_x <= 1.0f ) {
             Destroy( item );
         }
+    }
+
+    float conversion( float coll ) {
+        if( coll < 0 ){
+            coll *= -1f;
+        }
+        return coll;
     }
 
     //Animation
