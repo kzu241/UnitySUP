@@ -56,14 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Resources\Camera\obj_createCamera.cs" />
     <Compile Include="Assets\Resources\Player\obj_Player.cs" />
     <Compile Include="Assets\Resources\Item\obj_item.cs" />
-    <Compile Include="Assets\Resources\Stage\fld_Stage.cs" />
     <Compile Include="Assets\Resources\Camera\obj_Camera.cs" />
-    <Compile Include="Assets\Resources\Player\obj_createPlayer.cs" />
-    <Compile Include="Assets\Resources\Item\obj_createItem.cs" />
-    <Compile Include="Assets\move.cs" />
+    <Compile Include="Assets\Resources\createObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

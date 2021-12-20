@@ -35,7 +35,7 @@ public class obj_Player : MonoBehaviour {
     void gravity( ) {
         Vector3 ground_pos = new Vector3( 0.0f, 0.0f, 0.0f );
         float now_pos_y = pos.y;
-        float ground_get_pos = ground_pos.y + 0.76f;
+        float ground_get_pos = ground_pos.y + 0.97f;
         if ( now_pos_y <= ground_get_pos ) {
             transform.Translate( 0.0f, 0.0f, 0.0f, Space.World );
         } else {
