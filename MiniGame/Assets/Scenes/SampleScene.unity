@@ -245,9 +245,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27727d4c4811844db8fb27b3229e6f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 5935679905208935557, guid: f1aa189ad45711d41ae6668a5f84bd1e, type: 3}
   player_position: {x: 1, y: 10, z: 0}
-  item: {fileID: 0}
+  item: {fileID: 7255798821489579790, guid: ffc746422f485c44c9e0a88e7097b9e6, type: 3}
+  stage: {fileID: 5003317022558565964, guid: fa99ecf445313c742a427b28a085571f, type: 3}
+  main_camera: {fileID: 4322291982518967569, guid: cf2f155a5af59bf499f1f4fb7b2fcf83, type: 3}
 --- !u!4 &1412391271
 Transform:
   m_ObjectHideFlags: 0
