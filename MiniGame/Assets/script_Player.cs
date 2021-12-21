@@ -31,14 +31,13 @@ public class script_Player : MonoBehaviour {
     }
 
     void gravity( ) {
-        Vector3 ground_pos = new Vector3( 0.0f, 0.0f, 0.0f );
+        GameObject floor = GameObject.FindGameObjectWithTag("Floor");
         float now_pos_y = pos.y;
-        float ground_get_pos = ground_pos.y + 0.97f;
-        if ( now_pos_y <= ground_get_pos ) {
+        if ( now_pos_y <= floor.transform.position.y + 0.99f ) {
             transform.Translate( 0.0f, 0.0f, 0.0f, Space.World );
         } else {
-            transform.Translate( 0.0f, gravity_power, 0.0f, Space.World );
             gravity_power -= 0.01f;
+            transform.Translate( 0.0f, gravity_power, 0.0f, Space.World );
         }
     }
         
@@ -72,12 +71,12 @@ public class script_Player : MonoBehaviour {
         GameObject front_wall = GameObject.FindGameObjectWithTag( "FrontWall" );
         float now_pos_z = pos.z;
         float now_pos_x = pos.x;
-        if ( left_wall.transform.position.x + 1.0f >= now_pos_x ) {
+        if ( left_wall.transform.position.x + 0.9f >= now_pos_x ) {
             stop_left = true;
         } else {
             stop_left = false;
         }
-        if ( right_wall.transform.position.x - 2.0f <= now_pos_x ) {
+        if ( right_wall.transform.position.x - 1.9f <= now_pos_x ) {
             stop_right = true;
         } else {
             stop_right = false;

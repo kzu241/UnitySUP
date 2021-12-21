@@ -10,6 +10,7 @@ TagManager:
   - LeftWall
   - Item
   - Point
+  - Floor
   layers:
   - Default
   - TransparentFX
