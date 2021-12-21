@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEditor;
 
 public class createObject : MonoBehaviour {
     //player
@@ -25,8 +27,9 @@ public class createObject : MonoBehaviour {
         createCamera( );
     }
    void createPlayer( ) {
-        player = ( GameObject )Resources.Load( "Player/player" );
-        Instantiate( player, player_position, player_rotation );
+        //player = ( GameObject )Resources.Load( "Player/player" );
+        Texture texture = AssetDatabase.LoadAssetAtPath<Texture>("Assets/player");
+        Instantiate( texture, player_position, player_rotation );
     }
     void createItem( ) {
         item = ( GameObject )Resources.Load( "Item/item" );
