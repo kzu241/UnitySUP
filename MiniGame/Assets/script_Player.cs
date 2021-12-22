@@ -7,11 +7,11 @@ public class script_Player : MonoBehaviour {
     Transform player;
     public GameObject item;
     float gravity_power = -0.02f;
+    float speed = 0f;
     bool stop_left = false;
     bool stop_right = false;
     bool stop_back = false;
     bool stop_front = false;
-    float speed = 0f;
 
     void Start( ) {
         item = GameObject.FindGameObjectWithTag( "Item" );
@@ -81,12 +81,12 @@ public class script_Player : MonoBehaviour {
         } else {
             stop_right = false;
         }
-        if ( back_wall.transform.position.z + 1.0f >= now_pos_z ) {
+        if ( back_wall.transform.position.z + 0.9f >= now_pos_z ) {
             stop_back = true;
         } else {
             stop_back = false;
         }
-        if ( front_wall.transform.position.z - 2.0f <= now_pos_z ) {
+        if ( front_wall.transform.position.z - 1.9f <= now_pos_z ) {
             stop_front = true;
         } else {
             stop_front = false;
