@@ -7,7 +7,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class script_createObject : MonoBehaviour {
     //player
     public Transform player;
-    public Vector3 player_position = new Vector3( 1.0f, 10.0f, 0.0f );
+    Vector3 player_position = new Vector3( 1.0f, 10.0f, 0.0f );
     Quaternion player_rotation = Quaternion.Euler( 0f, 0f, 0f );
     //item
     public Transform item;
