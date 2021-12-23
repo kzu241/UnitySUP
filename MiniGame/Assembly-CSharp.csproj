@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="Assets\script_Player.cs" />
     <Compile Include="Assets\script_Controller.cs" />
-    <Compile Include="Assets\script_Camera.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
