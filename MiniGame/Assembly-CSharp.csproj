@@ -57,10 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\script_Player.cs" />
-    <Compile Include="Assets\script_item.cs" />
-    <Compile Include="Assets\script_createObject.cs" />
-    <Compile Include="Assets\script_Camera.cs" />
     <Compile Include="Assets\script_Controller.cs" />
+    <Compile Include="Assets\script_Camera.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
