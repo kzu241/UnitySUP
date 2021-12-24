@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8045865281733147192}
   - component: {fileID: 2980625946241586171}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: BackWall
   m_TagString: BackWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 1113742937116024618}
   - component: {fileID: 7395405557700747183}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: FrontWall
   m_TagString: FrontWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1376,7 +1376,7 @@ GameObject:
   - component: {fileID: 5496425821477463205}
   - component: {fileID: 7758995301042055638}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: LeftWall
   m_TagString: LeftWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1713,7 +1713,7 @@ GameObject:
   - component: {fileID: 8640443128158630089}
   - component: {fileID: 6014325808584149363}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: RightWall
   m_TagString: RightWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
