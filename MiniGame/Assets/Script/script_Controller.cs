@@ -11,6 +11,7 @@ public class script_Controller : MonoBehaviour {
     bool stop_right = false;
     bool stop_back = false;
     bool stop_front = false;
+    bool setup_ready = false;
     //Player
     GameObject _player_game_object;
     Vector3 _player_position = new Vector3( 1.0f, 10.0f, 0.0f );
@@ -19,6 +20,9 @@ public class script_Controller : MonoBehaviour {
                                 //Stage
     GameObject _stage_game_object;
     Vector3 _stage_position = new Vector3( -5.0f, 0.0f, -5.0f );
+    //Child
+    GameObject back_wall;
+    GameObject _stage_child_object;
                                 //Item
     GameObject _item_game_object;
     Vector3 _item_position = new Vector3( 5.0f, 1.0f, 5f );
@@ -34,6 +38,7 @@ public class script_Controller : MonoBehaviour {
         createStage( );
         createItem( );
         createCamera( );
+        setup_ready = true;
     }
     void createPlayer( ) {
         Object player_data = AssetDatabase.LoadMainAssetAtPath("Assets/Prefab/prefab_player.prefab");
@@ -42,6 +47,10 @@ public class script_Controller : MonoBehaviour {
     void createStage( ) {
         Object stage_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_stage.prefab" );
         _stage_game_object = ( GameObject )Instantiate( stage_data, _stage_position, Quaternion.identity );
+    }
+    void createChild( ) {
+        GameObject back_wall = transform.Find("BackWall").gameObject;
+        //_stage_child_object = ( GameObject )Instantiate( back_wall,  );
     }
     void createItem( ) {
         Object item_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_item.prefab" );
@@ -53,11 +62,12 @@ public class script_Controller : MonoBehaviour {
     }
        
     void Update( ) {
-        gravity( );
-        animationMove( );
-        playerMove( );
-        collisionJudgement( );
-        
+        if( setup_ready == true ){
+            gravity( );
+            animationMove( );
+            playerMove( );
+            collisionJudgement( );
+        }
     }
     void animationMove( ) {
         cameraMove( );
@@ -111,10 +121,10 @@ public class script_Controller : MonoBehaviour {
     }
 
     void collisionJudgement( ) {
-        GameObject back_wall = transform.Find("BackWall").gameObject;
-        GameObject front_wall = transform.Find("FrontWall").gameObject;
-        GameObject left_wall = transform.Find("LeftWall").gameObject;
-        GameObject right_wall = transform.Find("RightWall").gameObject;
+        GameObject back_wall = transform.Find( "BackWall" ).gameObject;
+        GameObject front_wall = transform.Find( "FrontWall" ).gameObject;
+        GameObject left_wall = transform.Find( "LeftWall" ).gameObject;
+        GameObject right_wall = transform.Find( "RightWall" ).gameObject;
         float now_pos_z = _player_game_object.transform.position.z;
         float now_pos_x = _player_game_object.transform.position.x;
         if ( left_wall.transform.position.x + 0.9f >= now_pos_x ) {
