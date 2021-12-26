@@ -4,18 +4,18 @@ using UnityEngine;
 using UnityEditor;
 
 public class script_Controller : MonoBehaviour {
-    float gravity_power = -0.02f;
+    float _gravity_power = -0.02f;
     Vector3 _ground_pos = new Vector3( 0f, 0f, 0f );
-    float speed = 0f;
-    bool stop_left = false;
-    bool stop_right = false;
-    bool stop_back = false;
-    bool stop_front = false;
-    //Player
+    float _speed = 0f;
+    bool _stop_left = false;
+    bool _stop_right = false;
+    bool _stop_back = false;
+    bool _stop_front = false;
+                                //Player
     GameObject _player_game_object;
     Vector3 _player_position = new Vector3( 1.0f, 10.0f, 0.0f );
     Quaternion _player_rotation = Quaternion.Euler( 0f, 0f, 0f );
-    float now_player_pos;
+    float _now_player_pos;
                                 //Stage
     GameObject _stage_game_object;
     Vector3 _stage_position = new Vector3( -5.0f, 0.0f, -5.0f );
@@ -28,17 +28,11 @@ public class script_Controller : MonoBehaviour {
     GameObject _item_game_object;
     Vector3 _item_position = new Vector3( 5.0f, 1.0f, 5f );
     Quaternion _item_rotation = Quaternion.Euler( 0f, 0f, 45f );
-                                //Camera
-    GameObject _camera_game_object;
-    Vector3 _camera_position = new Vector3( 5.0f, 15.0f, -13.0f );
-    Quaternion _camera_rotation = Quaternion.Euler( 50.0f, 0.0f, 0.0f );
-    Vector3 now_camera_pos;
 
     void Start( ) {
         createPlayer( );
         createStage( );
         createItem( );
-        createCamera( );
         createChild( );
     }
     void createPlayer( ) {
@@ -59,90 +53,79 @@ public class script_Controller : MonoBehaviour {
         Object item_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_item.prefab" );
         _item_game_object = ( GameObject )Instantiate( item_data, _item_position, _item_rotation );
     }
-    void createCamera( ) {
-        Object camera_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_camera.prefab" );
-        _camera_game_object = ( GameObject )Instantiate( camera_data, _camera_position, _camera_rotation );
-    }
-       
+   
     void Update( ) {
         gravity( );
-        animationMove( );
-        playerMove( );
-        collisionJudgement( );
+        processItem( );
+        movePlayer( );
+        collisionDetection( );
     }
-    void animationMove( ) {
-        cameraMove( );
+    void processItem( ) {
         if( _item_game_object != null ){
-            itemMove( );
+            moveItem( );
             removeItem( );
         }
     }
-    void itemMove( ) {
+    void moveItem( ) {
         Quaternion y = Quaternion.AngleAxis( 30.0f * Time.deltaTime, Vector3.up );
         Quaternion rotate_y = y * _item_game_object.transform.rotation;
         _item_game_object.transform.rotation = rotate_y;
     }
-    void cameraMove( ) {
-        now_camera_pos.z = _player_game_object.transform.position.z - 15.0f;
-        now_camera_pos.x = _player_game_object.transform.position.x;
-        now_camera_pos.y = _player_game_object.transform.position.y + 15.0f;
-        _camera_game_object.transform.position = now_camera_pos;
-    }
     void gravity( ) {
-        now_player_pos = _player_game_object.transform.position.y;
-        if ( now_player_pos <= _ground_pos.y + 0.99f ) {
+        _now_player_pos = _player_game_object.transform.position.y;
+        if ( _now_player_pos <= _ground_pos.y + 0.99f ) {
             _player_game_object.transform.Translate( 0.0f, 0.0f, 0.0f, Space.World );
         } else {
-            gravity_power -= 0.01f;
-            _player_game_object.transform.Translate( 0.0f, gravity_power, 0.0f, Space.World );
+            _gravity_power -= 0.01f;
+            _player_game_object.transform.Translate( 0.0f, _gravity_power, 0.0f, Space.World );
         }
     }
 
-    void playerMove( ) {
-        if ( Input.GetKey( KeyCode.UpArrow ) && !stop_front ) {
-            speed = 0.05f;
-            _player_game_object.transform.Translate(0, 0, speed, Space.World);
-            animationForwardMove( );
+    void movePlayer( ) {
+        if ( Input.GetKey( KeyCode.UpArrow ) && !_stop_front ) {
+            _speed = 0.05f;
+            _player_game_object.transform.Translate(0, 0, _speed, Space.World);
+            moveForwardAnimation( );
         }
-        if ( Input.GetKey( KeyCode.DownArrow ) && !stop_back ) {
-            speed = -0.05f;
-            _player_game_object.transform.Translate( 0, 0, speed, Space.World );
-            animationBackwardMove( );
+        if ( Input.GetKey( KeyCode.DownArrow ) && !_stop_back ) {
+            _speed = -0.05f;
+            _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
+            moveBackwardAnimation( );
         }
-        if ( Input.GetKey( KeyCode.LeftArrow ) && !stop_left ) {
-            speed = -0.05f;
-            _player_game_object.transform.Translate( speed, 0, 0, Space.World );
-            animationLeftMove( );
+        if ( Input.GetKey( KeyCode.LeftArrow ) && !_stop_left ) {
+            _speed = -0.05f;
+            _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
+            moveLeftAnimation( );
         }
-        if ( Input.GetKey( KeyCode.RightArrow ) && !stop_right ) {
-            speed = 0.05f;
-            _player_game_object.transform.Translate( speed, 0, 0, Space.World );
-            animationRightMove( );
+        if ( Input.GetKey( KeyCode.RightArrow ) && !_stop_right ) {
+            _speed = 0.05f;
+            _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
+            moveRightAnimation( );
         }
     }
 
-    void collisionJudgement( ) {
+    void collisionDetection( ) {
         float now_pos_z = _player_game_object.transform.position.z;
         float now_pos_x = _player_game_object.transform.position.x;
-        if (_child_left_object.transform.position.x + 0.9f >= now_pos_x ) {
-            stop_left = true;
+        if ( _child_left_object.transform.position.x + 0.9f >= now_pos_x ) {
+            _stop_left = true;
         } else {
-            stop_left = false;
+            _stop_left = false;
         }
-        if (_child_right_object.transform.position.x - 1.9f <= now_pos_x ) {
-            stop_right = true;
+        if ( _child_right_object.transform.position.x - 1.9f <= now_pos_x ) {
+            _stop_right = true;
         } else {
-            stop_right = false;
+            _stop_right = false;
         }
-        if (_child_back_object.transform.position.z + 0.9f >= now_pos_z ) {
-            stop_back = true;
+        if ( _child_back_object.transform.position.z + 0.9f >= now_pos_z ) {
+            _stop_back = true;
         } else {
-            stop_back = false;
+            _stop_back = false;
         }
-        if (_child_front_object.transform.position.z - 1.9f <= now_pos_z ) {
-            stop_front = true;
+        if ( _child_front_object.transform.position.z - 1.9f <= now_pos_z ) {
+            _stop_front = true;
         } else {
-            stop_front = false;
+            _stop_front = false;
         }
     }
 
@@ -166,22 +149,22 @@ public class script_Controller : MonoBehaviour {
     }
 
     //Animation
-    void animationForwardMove( ) {
+    void moveForwardAnimation( ) {
         Quaternion z = Quaternion.AngleAxis( 300.0f * Time.deltaTime, Vector3.right );
         Quaternion forward_move = z * _player_game_object.transform.rotation;
         _player_game_object.transform.rotation = forward_move;
     }
-    void animationBackwardMove( ) {
+    void moveBackwardAnimation( ) {
         Quaternion z = Quaternion.AngleAxis( -300.0f * Time.deltaTime, Vector3.right );
         Quaternion backward_move = z * _player_game_object.transform.rotation;
         _player_game_object.transform.rotation = backward_move;
     }
-    void animationLeftMove( ) {
+    void moveLeftAnimation( ) {
         Quaternion x = Quaternion.AngleAxis( 300.0f * Time.deltaTime, Vector3.forward );
         Quaternion left_move = x * _player_game_object.transform.rotation;
         _player_game_object.transform.rotation = left_move;
     }
-    void animationRightMove( ) {
+    void moveRightAnimation( ) {
         Quaternion x = Quaternion.AngleAxis( -300.0f * Time.deltaTime, Vector3.forward );
         Quaternion right_move = x * _player_game_object.transform.rotation;
         _player_game_object.transform.rotation = right_move;
