@@ -55,10 +55,10 @@ public class script_Controller : MonoBehaviour {
     }
    
     void Update( ) {
-        gravity( );
+        addGravity( );
         processItem( );
         movePlayer( );
-        collisionDetection( );
+        takeCollision( );
     }
     void processItem( ) {
         if( _item_game_object != null ){
@@ -71,7 +71,7 @@ public class script_Controller : MonoBehaviour {
         Quaternion rotate_y = y * _item_game_object.transform.rotation;
         _item_game_object.transform.rotation = rotate_y;
     }
-    void gravity( ) {
+    void addGravity( ) {
         _now_player_pos = _player_game_object.transform.position.y;
         if ( _now_player_pos <= _ground_pos.y + 0.99f ) {
             _player_game_object.transform.Translate( 0.0f, 0.0f, 0.0f, Space.World );
@@ -104,7 +104,7 @@ public class script_Controller : MonoBehaviour {
         }
     }
 
-    void collisionDetection( ) {
+    void takeCollision( ) {
         float now_pos_z = _player_game_object.transform.position.z;
         float now_pos_x = _player_game_object.transform.position.x;
         if ( _child_left_object.transform.position.x + 0.9f >= now_pos_x ) {
