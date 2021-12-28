@@ -134,14 +134,14 @@ public class script_Controller : MonoBehaviour {
         float now_pos_z = _player_game_object.transform.position.z;
         float item_pos_x = _item_game_object.transform.position.x;
         float item_pos_z = _item_game_object.transform.position.z;
-        float coll_x = conversion( item_pos_x - now_pos_x );
-        float coll_z = conversion( item_pos_z - now_pos_z );
+        float coll_x = changePositiveNumber( item_pos_x - now_pos_x );
+        float coll_z = changePositiveNumber( item_pos_z - now_pos_z );
         if ( coll_z <= 1.0f && coll_x <= 1.0f ) {
             Destroy( _item_game_object );
         }
     }
 
-    float conversion( float coll ) {
+    float changePositiveNumber( float coll ) {
         if ( coll < 0 ) {
             coll *= -1f;
         }
