@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Game
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 875, y: 613}
+  m_MinSize: {x: 875, y: 592}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -46,7 +46,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 875, y: 613}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -119,10 +119,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 911, y: 563}
+  m_MinSize: {x: 911, y: 542}
   m_MaxSize: {x: 22006, y: 18063}
   vertical: 1
-  controlID: 613
+  controlID: 3937
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,10 +146,10 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 824
-  m_MinSize: {x: 911, y: 442}
+  m_MinSize: {x: 911, y: 421}
   m_MaxSize: {x: 22006, y: 14042}
   vertical: 0
-  controlID: 614
+  controlID: 3938
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -171,10 +171,10 @@ MonoBehaviour:
     y: 0
     width: 1063
     height: 824
-  m_MinSize: {x: 201, y: 442}
-  m_MaxSize: {x: 4001, y: 8042}
+  m_MinSize: {x: 201, y: 421}
+  m_MaxSize: {x: 4001, y: 8021}
   vertical: 1
-  controlID: 807
+  controlID: 4098
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 322}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 615
+  controlID: 3939
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -451,8 +451,8 @@ MonoBehaviour:
       y: 21
       width: 1062
       height: 455
-    m_Scale: {x: 1.4619366, y: 1.4619362}
-    m_Translation: {x: 442.88986, y: 282.96735}
+    m_Scale: {x: 1.4619366, y: 1.4619364}
+    m_Translation: {x: 442.88986, y: 282.96738}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
       x: -302.9474
       y: -193.55656
       width: 726.4337
-      height: 311.23108
+      height: 311.23105
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_LastWindowPixelSize: {x: 1062, y: 476}
@@ -558,11 +558,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.40668017, y: -0.019397458, z: 0.008066275, w: 0.91357625}
     speed: 2
-    m_Value: {x: -0.40668017, y: 0.01939746, z: -0.008066275, w: -0.91357625}
+    m_Value: {x: 0.40658838, y: -0.019393079, z: 0.008064454, w: 0.91337}
   m_Size:
-    m_Target: 4.1808734
+    m_Target: 3.8808734
     speed: 2
-    m_Value: 4.1808734
+    m_Value: 3.8808734
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -692,9 +692,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 60400000
-    m_LastClickedID: 16480
-    m_ExpandedIDs: 0000000032400000344000005e40000000ca9a3b
+    m_SelectedIDs: 5a400000
+    m_LastClickedID: 16474
+    m_ExpandedIDs: 0000000032400000344000005840000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
