@@ -36,8 +36,7 @@ public class script_Controller : MonoBehaviour {
         createChild( );
     }
     void createPlayer( ) {
-        GameObject.CreatePrimitive( PrimitiveType.Cube );
-        Object player_data = AssetDatabase.LoadMainAssetAtPath("Assets/Prefab/prefab_player.prefab");
+        Object player_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_player.prefab" );
         _player_game_object = (GameObject)Instantiate( player_data, _player_position, Quaternion.identity );
     }
     void createStage( ) {
@@ -85,7 +84,7 @@ public class script_Controller : MonoBehaviour {
     void movePlayer( ) {
         if ( Input.GetKey( KeyCode.UpArrow ) && !_stop_front ) {
             _speed = 0.05f;
-            _player_game_object.transform.Translate(0, 0, _speed, Space.World);
+            _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
             moveForwardAnimation( );
         }
         if ( Input.GetKey( KeyCode.DownArrow ) && !_stop_back ) {
