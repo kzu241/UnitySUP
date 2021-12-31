@@ -26,6 +26,7 @@ public class script_Controller : MonoBehaviour {
                                 //Item
     GameObject _item_game_object;
     Vector3 _item_position = new Vector3( 5.0f, 1.0f, 5f );
+    Quaternion _item_rotation = Quaternion.Euler( 0, 0, 45 );
 
     void Start( ) {
         createPlayer( );
@@ -34,6 +35,7 @@ public class script_Controller : MonoBehaviour {
         createChild( );
     }
     void createPlayer( ) {
+        GameObject.CreatePrimitive( PrimitiveType.Cube );
         Object player_data = AssetDatabase.LoadMainAssetAtPath("Assets/Prefab/prefab_player.prefab");
         _player_game_object = (GameObject)Instantiate( player_data, _player_position, Quaternion.identity );
     }
@@ -49,7 +51,7 @@ public class script_Controller : MonoBehaviour {
     }
     void createItem( ) {
         Object item_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_item.prefab" );
-        _item_game_object = ( GameObject )Instantiate( item_data, _item_position, Quaternion.identity );
+        _item_game_object = ( GameObject )Instantiate( item_data, _item_position, _item_rotation );
     }
    
     void Update( ) {
@@ -65,9 +67,11 @@ public class script_Controller : MonoBehaviour {
         }
     }
     void moveItem( ) {
-        Quaternion _item_rotation = Quaternion.AngleAxis( 30.0f * Time.deltaTime, Vector3.up );
-        Quaternion rotate_y = _item_rotation * _item_game_object.transform.rotation;
-        _item_game_object.transform.rotation = rotate_y;
+        //Quaternion item_rotate = Quaternion.Euler( 0f, 0f, 45f );
+        //Quaternion item_rotation = Quaternion.AngleAxis( 30.0f * Time.deltaTime, Vector3.up );
+        //Quaternion rotate_y = item_rotation * _item_game_object.transform.rotation;
+        //_item_game_object.transform.rotation = rotate_y;
+        _item_game_object.transform.Rotate( 0, 45 * Time.deltaTime, 0, Space.World );
     }
     void addGravity( ) {
         _now_player_pos = _player_game_object.transform.position.y;
