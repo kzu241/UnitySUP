@@ -12,19 +12,21 @@ public class script_Controller : MonoBehaviour {
     bool _stop_back = false;
     bool _stop_front = false;
 
-
                                 //Player
     GameObject _player_game_object;
     Vector3 _player_position = new Vector3( 1.0f, 10.0f, 0.0f );
     float _now_player_pos;
                                 //Stage
-    GameObject _stage_game_object;
-    Vector3 _stage_position = new Vector3( -5.0f, 0.0f, -5.0f );
-                                //Child
-    GameObject _child_back_object;
-    GameObject _child_front_object;
-    GameObject _child_left_object;
-    GameObject _child_right_object;
+    GameObject _floor_game_object;
+    Vector3 _floor_position = new Vector3( -5.0f, 0.0f, -5.0f );
+    GameObject _front_game_object;
+    Vector3 _front_positiont = new Vector3( -5.0f, 0.0f, 15.0f);
+    GameObject _back_game_object;
+    Vector3 _back_position = new Vector3( -5.0f, 0.0f, -5.0f );
+    GameObject _right_game_object;
+    Vector3 _right_position = new Vector3( 15.0f, 0.0f, 15.0f );
+    GameObject _left_game_object;
+    Vector3 _left_position = new Vector3( -4.0f, 0.0f, 15.0f );
                                 //Item
     GameObject _item_game_object;
     Vector3 _item_position = new Vector3( 5.0f, 1.0f, 5f );
@@ -33,25 +35,29 @@ public class script_Controller : MonoBehaviour {
         createPlayer( );
         createStage( );
         createItem( );
-        createChild( );
     }
     void createPlayer( ) {
         Object player_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_player.prefab" );
         _player_game_object = (GameObject)Instantiate( player_data, _player_position, Quaternion.identity );
     }
     void createStage( ) {
-        Object stage_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_stage.prefab" );
-        _stage_game_object = ( GameObject )Instantiate( stage_data, _stage_position, Quaternion.identity );
-    }
-    void createChild( ) {
-        _child_back_object = _stage_game_object.transform.Find( "BackWall" ).gameObject;
-        _child_front_object = _stage_game_object.transform.Find( "FrontWall" ).gameObject;
-        _child_right_object = _stage_game_object.transform.Find( "RightWall" ).gameObject;
-        _child_left_object = _stage_game_object.transform.Find( "LeftWall" ).gameObject;
+        Object floor_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_Floor.prefab" );
+        _floor_game_object = ( GameObject )Instantiate( floor_data, _floor_position, Quaternion.identity );
+        Object front_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_FrontWall.prefab" );
+        _front_game_object = ( GameObject )Instantiate( front_data, _front_positiont, Quaternion.identity );
+        Object back_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_BackWall.prefab" );
+        _back_game_object = ( GameObject )Instantiate( back_data, _back_position, Quaternion.identity );
+        Object right_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_RightWall.prefab" );
+        _right_game_object = ( GameObject )Instantiate( right_data, _right_position, Quaternion.identity );
+        _right_game_object.transform.Rotate( 0f, 90f, 0 );
+        Object left_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_LeftWall.prefab" );
+        _left_game_object = ( GameObject )Instantiate( left_data, _left_position, Quaternion.identity );
+        _left_game_object.transform.Rotate( 0f, 90f, 0f );
     }
     void createItem( ) {
         Object item_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_item.prefab" );
         _item_game_object = ( GameObject )Instantiate( item_data, _item_position, Quaternion.identity );
+        _item_game_object.transform.Rotate( 0f, 0f, 45f );
     }
    
     void Update( ) {
@@ -107,22 +113,22 @@ public class script_Controller : MonoBehaviour {
     void takeCollision( ) {
         float now_pos_z = _player_game_object.transform.position.z;
         float now_pos_x = _player_game_object.transform.position.x;
-        if ( _child_left_object.transform.position.x + 0.9f >= now_pos_x ) {
+        if ( _left_game_object.transform.position.x + 0.9f >= now_pos_x ) {
             _stop_left = true;
         } else {
             _stop_left = false;
         }
-        if ( _child_right_object.transform.position.x - 1.9f <= now_pos_x ) {
+        if ( _right_game_object.transform.position.x - 1.9f <= now_pos_x ) {
             _stop_right = true;
         } else {
             _stop_right = false;
         }
-        if ( _child_back_object.transform.position.z + 0.9f >= now_pos_z ) {
+        if ( _back_game_object.transform.position.z + 0.9f >= now_pos_z ) {
             _stop_back = true;
         } else {
             _stop_back = false;
         }
-        if ( _child_front_object.transform.position.z - 1.9f <= now_pos_z ) {
+        if ( _front_game_object.transform.position.z - 1.9f <= now_pos_z ) {
             _stop_front = true;
         } else {
             _stop_front = false;
