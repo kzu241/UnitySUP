@@ -5,63 +5,35 @@ using UnityEditor;
 
 public class script_Controller : MonoBehaviour {
     float _gravity_power = -0.02f;
-    Vector3 _ground_pos = new Vector3( 0f, 0f, 0f );
     float _speed = 0f;
     bool _stop_left = false;
     bool _stop_right = false;
     bool _stop_back = false;
     bool _stop_front = false;
 
-                                //Player
     GameObject _player_game_object;
-    Vector3 _player_position = new Vector3( 1.0f, 10.0f, 0.0f );
-    float _now_player_pos;
-                                //Stage
     GameObject _floor_game_object;
-    Vector3 _floor_position = new Vector3( -5.0f, 0.0f, -5.0f );
     GameObject _front_game_object;
-    Vector3 _front_positiont = new Vector3( -5.0f, 0.0f, 15.0f);
     GameObject _back_game_object;
-    Vector3 _back_position = new Vector3( -5.0f, 0.0f, -5.0f );
     GameObject _right_game_object;
-    Vector3 _right_position = new Vector3( 15.0f, 0.0f, 15.0f );
     GameObject _left_game_object;
-    Vector3 _left_position = new Vector3( -4.0f, 0.0f, 15.0f );
-                                //Item
     GameObject _item_game_object;
-    Vector3 _item_position = new Vector3( 5.0f, 1.0f, 5f );
 
-    //Vector3 prefabLoad( string data, Vector3 pos ) {
-    //    Object prefab = Resources.Load( data );
-    //    return ( GameObject )Instantiate( prefab, pos, Quaternion.identity );
-    //}
+    GameObject prefabLoad( string data, Vector3 pos ) {
+        GameObject prefab = ( GameObject )Resources.Load( data );
+        return Instantiate( prefab, pos, Quaternion.identity );
+    }
     void Start( ) {
-        createPlayer( );
-        createStage( );
-        createItem( );
-    }
-    void createPlayer( ) {
-        //_player_game_object = prefabLoad( "prefab_player", Vector3(1.0f, 10.0f, 0.0f ) );
-        Object player_data = Resources.Load( "prefab_player" );
-        _player_game_object = ( GameObject )Instantiate( player_data, _player_position, Quaternion.identity );
-    }
-    void createStage( ) {
-        Object floor_data = Resources.Load( "prefab_Floor" );
-        _floor_game_object = ( GameObject )Instantiate( floor_data, _floor_position, Quaternion.identity );
-        Object front_data = Resources.Load( "prefab_FrontWall" );
-        _front_game_object = ( GameObject )Instantiate( front_data, _front_positiont, Quaternion.identity );
-        Object back_data = Resources.Load( "prefab_BackWall" );
-        _back_game_object = ( GameObject )Instantiate( back_data, _back_position, Quaternion.identity );
-        Object right_data = Resources.Load( "prefab_RightWall" );
-        _right_game_object = ( GameObject )Instantiate( right_data, _right_position, Quaternion.identity );
-        _right_game_object.transform.Rotate( 0f, 90f, 0 );
-        Object left_data = Resources.Load( "prefab_LeftWall" );
-        _left_game_object = ( GameObject )Instantiate( left_data, _left_position, Quaternion.identity );
+        _player_game_object = prefabLoad("prefab_player", new Vector3( 1.0f, 10.0f, 0.0f ) );
+        _floor_game_object = prefabLoad("prefab_Floor", new Vector3( -5.0f, 0.0f, -5.0f ) );
+        _front_game_object = prefabLoad("prefab_FrontWall", new Vector3( -5.0f, 0.0f, 15.0f ) );
+        _back_game_object = prefabLoad("prefab_BackWall", new Vector3( -5.0f, 0.0f, -5.0f ) );
+        _right_game_object = prefabLoad("prefab_RightWall", new Vector3( 15.0f, 0.0f, 15.0f ) );
+        _left_game_object = prefabLoad("prefab_LeftWall", new Vector3( -4.0f, 0.0f, 15.0f ) );
+        _item_game_object = prefabLoad("prefab_item", new Vector3( 5.0f, 1.0f, 5f ) );
+
+        _right_game_object.transform.Rotate( 0f, 90f, 0f );
         _left_game_object.transform.Rotate( 0f, 90f, 0f );
-    }
-    void createItem( ) {
-        Object item_data = Resources.Load( "prefab_item" );
-        _item_game_object = ( GameObject )Instantiate( item_data, _item_position, Quaternion.identity );
         _item_game_object.transform.Rotate( 0f, 0f, 45f );
     }
    
@@ -83,8 +55,7 @@ public class script_Controller : MonoBehaviour {
         _item_game_object.transform.rotation = rotate_y;
     }
     void addGravity( ) {
-        _now_player_pos = _player_game_object.transform.position.y;
-        if ( _now_player_pos <= _ground_pos.y + 0.99f ) {
+        if (_player_game_object.transform.position.y <= _floor_game_object.transform.position.y + 0.94f ) {
             _player_game_object.transform.Translate( 0.0f, 0.0f, 0.0f, Space.World );
         } else {
             _gravity_power -= 0.5f * Time.deltaTime;
