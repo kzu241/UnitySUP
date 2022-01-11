@@ -31,14 +31,17 @@ public class script_Controller : MonoBehaviour {
     GameObject _item_game_object;
     Vector3 _item_position = new Vector3( 5.0f, 1.0f, 5f );
 
+    Vector3 prefabLoad( string data, Vector3 pos ) {
+        Object prefab = Resources.Load( data );
+        return ( GameObject )Instantiate( prefab, pos, Quaternion.identity );
+    }
     void Start( ) {
         createPlayer( );
         createStage( );
         createItem( );
     }
     void createPlayer( ) {
-        Object player_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_player.prefab" );
-        _player_game_object = (GameObject)Instantiate( player_data, _player_position, Quaternion.identity );
+        _player_game_object = prefabLoad( "prefab_player", Vector3(1.0f, 10.0f, 0.0f ) );
     }
     void createStage( ) {
         Object floor_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_Floor.prefab" );
