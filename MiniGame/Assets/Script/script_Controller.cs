@@ -82,7 +82,7 @@ public class script_Controller : MonoBehaviour {
         if ( _now_player_pos <= _ground_pos.y + 0.99f ) {
             _player_game_object.transform.Translate( 0.0f, 0.0f, 0.0f, Space.World );
         } else {
-            _gravity_power -= 0.1f * Time.deltaTime;
+            _gravity_power -= 0.5f * Time.deltaTime;
             _player_game_object.transform.Translate( 0.0f, _gravity_power, 0.0f, Space.World );
         }
     }
