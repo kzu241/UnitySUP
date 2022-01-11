@@ -31,34 +31,36 @@ public class script_Controller : MonoBehaviour {
     GameObject _item_game_object;
     Vector3 _item_position = new Vector3( 5.0f, 1.0f, 5f );
 
-    Vector3 prefabLoad( string data, Vector3 pos ) {
-        Object prefab = Resources.Load( data );
-        return ( GameObject )Instantiate( prefab, pos, Quaternion.identity );
-    }
+    //Vector3 prefabLoad( string data, Vector3 pos ) {
+    //    Object prefab = Resources.Load( data );
+    //    return ( GameObject )Instantiate( prefab, pos, Quaternion.identity );
+    //}
     void Start( ) {
         createPlayer( );
         createStage( );
         createItem( );
     }
     void createPlayer( ) {
-        _player_game_object = prefabLoad( "prefab_player", Vector3(1.0f, 10.0f, 0.0f ) );
+        //_player_game_object = prefabLoad( "prefab_player", Vector3(1.0f, 10.0f, 0.0f ) );
+        Object player_data = Resources.Load( "prefab_player" );
+        _player_game_object = ( GameObject )Instantiate( player_data, _player_position, Quaternion.identity );
     }
     void createStage( ) {
-        Object floor_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_Floor.prefab" );
+        Object floor_data = Resources.Load( "prefab_Floor" );
         _floor_game_object = ( GameObject )Instantiate( floor_data, _floor_position, Quaternion.identity );
-        Object front_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_FrontWall.prefab" );
+        Object front_data = Resources.Load( "prefab_FrontWall" );
         _front_game_object = ( GameObject )Instantiate( front_data, _front_positiont, Quaternion.identity );
-        Object back_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_BackWall.prefab" );
+        Object back_data = Resources.Load( "prefab_BackWall" );
         _back_game_object = ( GameObject )Instantiate( back_data, _back_position, Quaternion.identity );
-        Object right_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_RightWall.prefab" );
+        Object right_data = Resources.Load( "prefab_RightWall" );
         _right_game_object = ( GameObject )Instantiate( right_data, _right_position, Quaternion.identity );
         _right_game_object.transform.Rotate( 0f, 90f, 0 );
-        Object left_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_LeftWall.prefab" );
+        Object left_data = Resources.Load( "prefab_LeftWall" );
         _left_game_object = ( GameObject )Instantiate( left_data, _left_position, Quaternion.identity );
         _left_game_object.transform.Rotate( 0f, 90f, 0f );
     }
     void createItem( ) {
-        Object item_data = AssetDatabase.LoadMainAssetAtPath( "Assets/Prefab/prefab_item.prefab" );
+        Object item_data = Resources.Load( "prefab_item" );
         _item_game_object = ( GameObject )Instantiate( item_data, _item_position, Quaternion.identity );
         _item_game_object.transform.Rotate( 0f, 0f, 45f );
     }
