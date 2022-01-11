@@ -82,29 +82,29 @@ public class script_Controller : MonoBehaviour {
         if ( _now_player_pos <= _ground_pos.y + 0.99f ) {
             _player_game_object.transform.Translate( 0.0f, 0.0f, 0.0f, Space.World );
         } else {
-            _gravity_power -= 0.01f;
+            _gravity_power -= 0.1f * Time.deltaTime;
             _player_game_object.transform.Translate( 0.0f, _gravity_power, 0.0f, Space.World );
         }
     }
 
     void movePlayer( ) {
         if ( Input.GetKey( KeyCode.UpArrow ) && !_stop_front ) {
-            _speed = 0.05f;
+            _speed = 10.0f * Time.deltaTime;
             _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
             moveForwardAnimation( );
         }
         if ( Input.GetKey( KeyCode.DownArrow ) && !_stop_back ) {
-            _speed = -0.05f;
+            _speed = -10.0f * Time.deltaTime;
             _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
             moveBackwardAnimation( );
         }
         if ( Input.GetKey( KeyCode.LeftArrow ) && !_stop_left ) {
-            _speed = -0.05f;
+            _speed = -10.0f * Time.deltaTime;
             _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
             moveLeftAnimation( );
         }
         if ( Input.GetKey( KeyCode.RightArrow ) && !_stop_right ) {
-            _speed = 0.05f;
+            _speed = 10.0f * Time.deltaTime;
             _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
             moveRightAnimation( );
         }
