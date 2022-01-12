@@ -49,13 +49,13 @@ public class script_Controller : MonoBehaviour {
             removeItem( );
         }
     }
-    void moveItem( ) {
+	void moveItem( ) {
         Quaternion item_rotation = Quaternion.AngleAxis( 30.0f * Time.deltaTime, Vector3.up );
         Quaternion rotate_y = item_rotation * _item_game_object.transform.rotation;
         _item_game_object.transform.rotation = rotate_y;
     }
     void addGravity( ) {
-        if (_player_game_object.transform.position.y <= _floor_game_object.transform.position.y + 0.94f ) {
+        if ( _player_game_object.transform.position.y <= _floor_game_object.transform.position.y + 0.94f ) {
             _player_game_object.transform.Translate( 0.0f, 0.0f, 0.0f, Space.World );
         } else {
             _gravity_power -= 0.5f * Time.deltaTime;
