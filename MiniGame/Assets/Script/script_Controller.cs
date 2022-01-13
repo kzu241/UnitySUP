@@ -41,7 +41,7 @@ public class script_Controller : MonoBehaviour {
         addGravity( );
         processItem( );
         movePlayer( );
-        takeCollision( );
+        //takeCollision( );
     }
     void processItem( ) {
         if( _item_game_object != null ){
