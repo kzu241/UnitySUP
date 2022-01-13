@@ -19,18 +19,18 @@ public class script_Controller : MonoBehaviour {
     GameObject _left_game_object;
     GameObject _item_game_object;
 
-    GameObject prefabLoad( string data, Vector3 pos ) {
+    GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab = ( GameObject )Resources.Load( data );
         return Instantiate( prefab, pos, Quaternion.identity );
     }
     void Start( ) {
-        _player_game_object = prefabLoad("prefab_player", new Vector3( 1.0f, 10.0f, 0.0f ) );
-        _floor_game_object = prefabLoad("prefab_Floor", new Vector3( -5.0f, 0.0f, -5.0f ) );
-        _front_game_object = prefabLoad("prefab_FrontWall", new Vector3( -5.0f, 0.0f, 15.0f ) );
-        _back_game_object = prefabLoad("prefab_BackWall", new Vector3( -5.0f, 0.0f, -5.0f ) );
-        _right_game_object = prefabLoad("prefab_RightWall", new Vector3( 15.0f, 0.0f, 15.0f ) );
-        _left_game_object = prefabLoad("prefab_LeftWall", new Vector3( -4.0f, 0.0f, 15.0f ) );
-        _item_game_object = prefabLoad("prefab_item", new Vector3( 5.0f, 1.0f, 5f ) );
+        _player_game_object = loadPrefab("prefab_player", new Vector3( 1.0f, 10.0f, 0.0f ) );
+        _floor_game_object = loadPrefab("prefab_Floor", new Vector3( -5.0f, 0.0f, -5.0f ) );
+        _front_game_object = loadPrefab("prefab_FrontWall", new Vector3( -5.0f, 0.0f, 15.0f ) );
+        _back_game_object = loadPrefab("prefab_BackWall", new Vector3( -5.0f, 0.0f, -5.0f ) );
+        _right_game_object = loadPrefab("prefab_RightWall", new Vector3( 15.0f, 0.0f, 15.0f ) );
+        _left_game_object = loadPrefab("prefab_LeftWall", new Vector3( -4.0f, 0.0f, 15.0f ) );
+        _item_game_object = loadPrefab("prefab_item", new Vector3( 5.0f, 1.0f, 5f ) );
 
         _right_game_object.transform.Rotate( 0f, 90f, 0f );
         _left_game_object.transform.Rotate( 0f, 90f, 0f );
