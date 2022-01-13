@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4453925220470746889}
   - component: {fileID: 4453925220470746888}
   - component: {fileID: 4453925220470746891}
-  - component: {fileID: 2132472110379016754}
+  - component: {fileID: 2629731079990670174}
   m_Layer: 0
   m_Name: prefab_Floor
   m_TagString: Untagged
@@ -621,19 +621,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!54 &2132472110379016754
-Rigidbody:
+--- !u!65 &2629731079990670174
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4453925220470746890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Size: {x: 14.495361, y: 1, z: 12.921512}
+  m_Center: {x: 5.848302, y: 0, z: 5.960756}

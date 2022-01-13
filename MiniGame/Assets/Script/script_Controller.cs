@@ -38,7 +38,7 @@ public class script_Controller : MonoBehaviour {
     }
    
     void Update( ) {
-        addGravity( );
+        //addGravity( );
         processItem( );
         movePlayer( );
         //takeCollision( );

@@ -43,7 +43,7 @@ MonoBehaviour:
     width: 1904
     height: 974
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Scene
   m_RootView: {fileID: 5}
   m_MinSize: {x: 875, y: 492}
   m_MaxSize: {x: 10000, y: 10000}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 121}
   m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 105
+  controlID: 147
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_MinSize: {x: 908, y: 442}
   m_MaxSize: {x: 22003, y: 10021}
   vertical: 0
-  controlID: 339
+  controlID: 1451
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 291
+  controlID: 1511
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -504,9 +504,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.06386709, y: -1.455147, z: -0.22487974}
+    m_Target: {x: 9.541922, y: -2.4018788, z: 4.307174}
     speed: 2
-    m_Value: {x: -0.06386709, y: -1.455147, z: -0.22487974}
+    m_Value: {x: 9.541922, y: -2.4018788, z: 4.307174}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -553,13 +553,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.0880338, y: -0.8696672, z: 0.16798529, w: -0.4557572}
+    m_Target: {x: 0.37006396, y: -0.60163915, z: 0.3682988, w: 0.6045275}
     speed: 2
-    m_Value: {x: 0.0880338, y: 0.8696672, z: -0.16798529, w: 0.4557572}
+    m_Value: {x: 0.36860257, y: -0.60309345, z: 0.36794657, w: 0.60417354}
   m_Size:
-    m_Target: 5.092605
+    m_Target: 3.8926046
     speed: 2
-    m_Value: 5.092605
+    m_Value: 3.8926046
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: e80a0000
+      m_SelectedIDs: c4400000
       m_LastClickedID: 0
       m_ExpandedIDs: 52fbffff
       m_RenameOverlay:
@@ -676,21 +676,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Script
+    - Assets/Resources
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Script
+  - Assets/Resources
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\uesr\Documents\GitHub\UnitySUP\MiniGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3c400000
-    m_LastClickedID: 16444
+    m_SelectedIDs: 3a400000
+    m_LastClickedID: 16442
     m_ExpandedIDs: 000000002e400000304000003440000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -707,7 +707,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 13}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
