@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEditor;
 
 public class script_Controller : MonoBehaviour {
-    float _gravity_power = -0.02f;
     float _speed = 0f;
     bool _stop_left = false;
     bool _stop_right = false;
@@ -38,10 +37,8 @@ public class script_Controller : MonoBehaviour {
     }
    
     void Update( ) {
-        //addGravity( );
         processItem( );
         movePlayer( );
-        //takeCollision( );
     }
     void processItem( ) {
         if( _item_game_object != null ){
@@ -54,60 +51,27 @@ public class script_Controller : MonoBehaviour {
         Quaternion rotate_y = item_rotation * _item_game_object.transform.rotation;
         _item_game_object.transform.rotation = rotate_y;
     }
-    void addGravity( ) {
-        if ( _player_game_object.transform.position.y <= _floor_game_object.transform.position.y + 0.94f ) {
-            _player_game_object.transform.Translate( 0.0f, 0.0f, 0.0f, Space.World );
-        } else {
-            _gravity_power -= 0.5f * Time.deltaTime;
-            _player_game_object.transform.Translate( 0.0f, _gravity_power, 0.0f, Space.World );
-        }
-    }
 
     void movePlayer( ) {
         if ( Input.GetKey( KeyCode.UpArrow ) && !_stop_front ) {
-            _speed = 10.0f * Time.deltaTime;
+            _speed = 7.0f * Time.deltaTime;
             _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
             moveForwardAnimation( );
         }
         if ( Input.GetKey( KeyCode.DownArrow ) && !_stop_back ) {
-            _speed = -10.0f * Time.deltaTime;
+            _speed = -7.0f * Time.deltaTime;
             _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
             moveBackwardAnimation( );
         }
         if ( Input.GetKey( KeyCode.LeftArrow ) && !_stop_left ) {
-            _speed = -10.0f * Time.deltaTime;
+            _speed = -7.0f * Time.deltaTime;
             _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
             moveLeftAnimation( );
         }
         if ( Input.GetKey( KeyCode.RightArrow ) && !_stop_right ) {
-            _speed = 10.0f * Time.deltaTime;
+            _speed = 7.0f * Time.deltaTime;
             _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
             moveRightAnimation( );
-        }
-    }
-
-    void takeCollision( ) {
-        float now_pos_z = _player_game_object.transform.position.z;
-        float now_pos_x = _player_game_object.transform.position.x;
-        if ( _left_game_object.transform.position.x + 0.9f >= now_pos_x ) {
-            _stop_left = true;
-        } else {
-            _stop_left = false;
-        }
-        if ( _right_game_object.transform.position.x - 1.9f <= now_pos_x ) {
-            _stop_right = true;
-        } else {
-            _stop_right = false;
-        }
-        if ( _back_game_object.transform.position.z + 0.9f >= now_pos_z ) {
-            _stop_back = true;
-        } else {
-            _stop_back = false;
-        }
-        if ( _front_game_object.transform.position.z - 1.9f <= now_pos_z ) {
-            _stop_front = true;
-        } else {
-            _stop_front = false;
         }
     }
 
@@ -128,6 +92,14 @@ public class script_Controller : MonoBehaviour {
             coll *= -1f;
         }
         return coll;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Sphereが衝突したオブジェクトがPlaneだった場合
+        if ( collision.gameObject.name == "Plane") {
+            Debug.Log( "きちゃー" );
+        }
     }
 
     //Animation
