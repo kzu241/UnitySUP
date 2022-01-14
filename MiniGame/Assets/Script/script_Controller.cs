@@ -84,6 +84,7 @@ public class script_Controller : MonoBehaviour {
         float coll_z = changePositiveNumber( item_pos_z - now_pos_z );
         if ( coll_z <= 1.0f && coll_x <= 1.0f ) {
             Destroy( _item_game_object );
+            Debug.Log("きちゃー");
         }
     }
 
@@ -94,12 +95,8 @@ public class script_Controller : MonoBehaviour {
         return coll;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Sphereが衝突したオブジェクトがPlaneだった場合
-        if ( collision.gameObject.name == "Plane") {
+    void OnCollisionEnter( Collision collision ) {
             Debug.Log( "きちゃー" );
-        }
     }
 
     //Animation
