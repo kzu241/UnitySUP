@@ -4,12 +4,6 @@ using UnityEngine;
 using UnityEditor;
 
 public class script_Controller : MonoBehaviour {
-    float _speed = 0f;
-    bool _stop_left = false;
-    bool _stop_right = false;
-    bool _stop_back = false;
-    bool _stop_front = false;
-
     GameObject _player_game_object;
     GameObject _floor_game_object;
     GameObject _front_game_object;
@@ -23,24 +17,24 @@ public class script_Controller : MonoBehaviour {
         return Instantiate( prefab, pos, Quaternion.identity );
     }
     void Start( ) {
-        _player_game_object = loadPrefab("prefab_player", new Vector3( 1f, 5f, 0f ) );
-        _floor_game_object = loadPrefab("prefab_Floor", new Vector3( 5f, 0f, 5f ) );
-        _front_game_object = loadPrefab("prefab_FrontWall", new Vector3( 5f, 1f, 15f ) );
-        _back_game_object = loadPrefab("prefab_BackWall", new Vector3( 5f, 1f, -5f ) );
-        _right_game_object = loadPrefab("prefab_RightWall", new Vector3( 15f, 1f, 5f ) );
-        _left_game_object = loadPrefab("prefab_LeftWall", new Vector3( -5f, 1f, 5f ) );
-        _item_game_object = loadPrefab("prefab_Item", new Vector3( 5f, 1f, 5f ) );
+        _player_game_object = loadPrefab( "prefab_player", new Vector3( 1f, 5f, 0f ) );
+        _floor_game_object = loadPrefab( "prefab_Floor", new Vector3( 5f, 0f, 5f ) );
+        _front_game_object = loadPrefab( "prefab_FrontWall", new Vector3( 5f, 1f, 15f ) );
+        _back_game_object = loadPrefab( "prefab_BackWall", new Vector3( 5f, 1f, -5f ) );
+        _right_game_object = loadPrefab( "prefab_RightWall", new Vector3( 15f, 1f, 5f ) );
+        _left_game_object = loadPrefab( "prefab_LeftWall", new Vector3( -5f, 1f, 5f ) );
+        _item_game_object = loadPrefab( "prefab_Item", new Vector3( 5f, 1f, 5f ) );
+
+        _player_game_object.GetComponent<Renderer>( ).material.color = Color.red;
+        _front_game_object.GetComponent<Renderer>( ).material.color = Color.cyan;
+        _back_game_object.GetComponent<Renderer>( ).material.color = Color.cyan;
+        _right_game_object.GetComponent<Renderer>( ).material.color = Color.cyan;
+        _left_game_object.GetComponent<Renderer>( ).material.color = Color.cyan;
+        _item_game_object.GetComponent<Renderer>( ).material.color = Color.yellow;
 
         _front_game_object.transform.Rotate( 0f, 90f, 0f );
         _back_game_object.transform.Rotate( 0f, 90f, 0f );
         _item_game_object.transform.Rotate( 0f, 0f, 45f );
-
-        _player_game_object.GetComponent< Renderer >( ).material.color = Color.red;
-        _front_game_object.GetComponent< Renderer > ( ).material.color = Color.cyan;
-        _back_game_object.GetComponent< Renderer > ( ).material.color = Color.cyan;
-        _left_game_object.GetComponent< Renderer > ( ).material.color = Color.cyan;
-        _right_game_object.GetComponent< Renderer > ( ).material.color = Color.cyan;
-        _item_game_object.GetComponent< Renderer >( ).material.color = Color.yellow;
     }
    
     void Update( ) {
@@ -59,19 +53,20 @@ public class script_Controller : MonoBehaviour {
         _item_game_object.transform.rotation = rotate_y;
     }
     void movePlayer( ) {
-        if ( Input.GetKey( KeyCode.UpArrow ) && !_stop_front ) {
+        float _speed = 0f;
+        if ( Input.GetKey( KeyCode.UpArrow ) ) {
             _speed = 7.0f * Time.deltaTime;
             _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
         }
-        if ( Input.GetKey( KeyCode.DownArrow ) && !_stop_back ) {
+        if ( Input.GetKey( KeyCode.DownArrow ) ) {
             _speed = -7.0f * Time.deltaTime;
             _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
         }
-        if ( Input.GetKey( KeyCode.LeftArrow ) && !_stop_left ) {
+        if ( Input.GetKey( KeyCode.LeftArrow ) ) {
             _speed = -7.0f * Time.deltaTime;
             _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
         }
-        if ( Input.GetKey( KeyCode.RightArrow ) && !_stop_right ) {
+        if ( Input.GetKey( KeyCode.RightArrow ) ) {
             _speed = 7.0f * Time.deltaTime;
             _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
         }
