@@ -23,10 +23,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 909, y: 442}
-  m_MaxSize: {x: 22004, y: 10000}
+  m_MinSize: {x: 911, y: 442}
+  m_MaxSize: {x: 22006, y: 10021}
   vertical: 0
-  controlID: 9425
+  controlID: 5664
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 9426
+  controlID: 5665
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -203,9 +203,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 3.5019603, y: 2.3988333, z: 11.034408}
+    m_Target: {x: 2.7587771, y: 1.3443453, z: 13.028727}
     speed: 2
-    m_Value: {x: 3.5019603, y: 2.3988333, z: 11.034408}
+    m_Value: {x: 2.7587771, y: 1.3443453, z: 13.028727}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -252,13 +252,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.17884149, y: -0.073659055, z: 0.013379291, w: 0.9810671}
+    m_Target: {x: 0.19630536, y: -0.0836673, z: 0.016769636, w: 0.97686535}
     speed: 2
-    m_Value: {x: 0.1788342, y: -0.07365605, z: 0.013378745, w: 0.9810271}
+    m_Value: {x: 0.19629723, y: -0.08366383, z: 0.016768942, w: 0.9768248}
   m_Size:
-    m_Target: 2.7794955
+    m_Target: 3.520504
     speed: 2
-    m_Value: 2.7794955
+    m_Value: 3.520504
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -521,8 +521,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 92b5ffff
-    m_LastClickedInstanceID: -19054
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
@@ -609,7 +609,7 @@ MonoBehaviour:
     m_CachedPref: -160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -19054
+  m_LastInspectedObjectInstanceID: -1
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_LockTracker:
