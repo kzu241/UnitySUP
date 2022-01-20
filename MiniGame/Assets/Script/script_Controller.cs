@@ -12,6 +12,8 @@ public class script_Controller : MonoBehaviour {
     GameObject _left_game_object;
     GameObject _item_game_object;
 
+    Rigidbody _rigid_body;
+
     GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab = ( GameObject )Resources.Load( data );
         return Instantiate( prefab, pos, Quaternion.identity );
@@ -35,6 +37,7 @@ public class script_Controller : MonoBehaviour {
         _front_game_object.transform.Rotate( 0f, 90f, 0f );
         _back_game_object.transform.Rotate( 0f, 90f, 0f );
         _item_game_object.transform.Rotate( 0f, 0f, 45f );
+        _rigid_body = _player_game_object.transform.GetComponent<Rigidbody>( );
     }
    
     void Update( ) {
@@ -53,22 +56,23 @@ public class script_Controller : MonoBehaviour {
         _item_game_object.transform.rotation = rotate_y;
     }
     void movePlayer( ) {
-        float _speed = 0f;
+        float _speed = 10f;
         if ( Input.GetKey( KeyCode.UpArrow ) ) {
-            _speed = 7.0f * Time.deltaTime;
-            _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
+            _speed = 10f * Time.deltaTime;
+            //_rigid_body.AddForce( transform.forward * _speed );
+            _rigid_body.AddForce( 0f, 0f, _speed, ForceMode.Impulse );
         }
         if ( Input.GetKey( KeyCode.DownArrow ) ) {
-            _speed = -7.0f * Time.deltaTime;
-            _player_game_object.transform.Translate( 0, 0, _speed, Space.World );
+            _speed = -1000f * Time.deltaTime;
+            _rigid_body.AddForce(transform.forward * _speed);
         }
         if ( Input.GetKey( KeyCode.LeftArrow ) ) {
-            _speed = -7.0f * Time.deltaTime;
-            _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
+            _speed = -1000f * Time.deltaTime;
+            _rigid_body.AddForce( transform.right * _speed );
         }
         if ( Input.GetKey( KeyCode.RightArrow ) ) {
-            _speed = 7.0f * Time.deltaTime;
-            _player_game_object.transform.Translate( _speed, 0, 0, Space.World );
+            _speed = 1000f * Time.deltaTime;
+            _rigid_body.AddForce( transform.right * _speed );
         }
     }
     void removeItem( ) {
