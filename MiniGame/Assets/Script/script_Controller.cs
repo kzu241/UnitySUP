@@ -12,7 +12,7 @@ public class script_Controller : MonoBehaviour {
     GameObject _left_game_object;
     GameObject _item_game_object;
 
-    Rigidbody _rigidbody_player;
+    Rigidbody _rb_player;
 
     GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab = ( GameObject )Resources.Load( data );
@@ -38,7 +38,7 @@ public class script_Controller : MonoBehaviour {
         _back_game_object.transform.Rotate( 0f, 90f, 0f );
         _item_game_object.transform.Rotate( 0f, 0f, 45f );
 
-        _rigidbody_player = _player_game_object.transform.GetComponent<Rigidbody>();
+        _rb_player = _player_game_object.transform.GetComponent<Rigidbody>();
     }
    
     void Update( ) {
@@ -60,19 +60,19 @@ public class script_Controller : MonoBehaviour {
         float speed = 10f;
         if ( Input.GetKey( KeyCode.UpArrow ) ) {
             speed = 20f * Time.deltaTime;
-            _rigidbody_player.AddForce( 0f, 0f, speed, ForceMode.Impulse );
+            _rb_player.AddForce( 0f, 0f, speed, ForceMode.Impulse );
         }
         if ( Input.GetKey( KeyCode.DownArrow ) ) {
             speed = -20f * Time.deltaTime;
-            _rigidbody_player.AddForce( 0f, 0f, speed, ForceMode.Impulse );
+            _rb_player.AddForce( 0f, 0f, speed, ForceMode.Impulse );
         }
         if ( Input.GetKey( KeyCode.LeftArrow ) ) {
             speed = -20f * Time.deltaTime;
-            _rigidbody_player.AddForce( speed, 0f, 0f, ForceMode.Impulse );
+            _rb_player.AddForce( speed, 0f, 0f, ForceMode.Impulse );
         }
         if ( Input.GetKey( KeyCode.RightArrow ) ) {
             speed = 20f * Time.deltaTime;
-            _rigidbody_player.AddForce( speed, 0f, 0f, ForceMode.Impulse );
+            _rb_player.AddForce( speed, 0f, 0f, ForceMode.Impulse );
         }
     }
     void removeItem( ) {
