@@ -12,7 +12,7 @@ public class script_Controller : MonoBehaviour {
     GameObject _left_game_object;
     GameObject _item_game_object;
 
-    Rigidbody _rigid_body;
+    Rigidbody _rigidbody_player;
 
     GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab = ( GameObject )Resources.Load( data );
@@ -37,7 +37,8 @@ public class script_Controller : MonoBehaviour {
         _front_game_object.transform.Rotate( 0f, 90f, 0f );
         _back_game_object.transform.Rotate( 0f, 90f, 0f );
         _item_game_object.transform.Rotate( 0f, 0f, 45f );
-        _rigid_body = _player_game_object.transform.GetComponent<Rigidbody>( );
+
+        _rigidbody_player = _player_game_object.transform.GetComponent<Rigidbody>();
     }
    
     void Update( ) {
@@ -56,23 +57,22 @@ public class script_Controller : MonoBehaviour {
         _item_game_object.transform.rotation = rotate_y;
     }
     void movePlayer( ) {
-        float _speed = 10f;
+        float speed = 10f;
         if ( Input.GetKey( KeyCode.UpArrow ) ) {
-            _speed = 10f * Time.deltaTime;
-            //_rigid_body.AddForce( transform.forward * _speed );
-            _rigid_body.AddForce( 0f, 0f, _speed, ForceMode.Impulse );
+            speed = 20f * Time.deltaTime;
+            _rigidbody_player.AddForce( 0f, 0f, speed, ForceMode.Impulse );
         }
         if ( Input.GetKey( KeyCode.DownArrow ) ) {
-            _speed = -1000f * Time.deltaTime;
-            _rigid_body.AddForce(transform.forward * _speed);
+            speed = -20f * Time.deltaTime;
+            _rigidbody_player.AddForce( 0f, 0f, speed, ForceMode.Impulse );
         }
         if ( Input.GetKey( KeyCode.LeftArrow ) ) {
-            _speed = -1000f * Time.deltaTime;
-            _rigid_body.AddForce( transform.right * _speed );
+            speed = -20f * Time.deltaTime;
+            _rigidbody_player.AddForce( speed, 0f, 0f, ForceMode.Impulse );
         }
         if ( Input.GetKey( KeyCode.RightArrow ) ) {
-            _speed = 1000f * Time.deltaTime;
-            _rigid_body.AddForce( transform.right * _speed );
+            speed = 20f * Time.deltaTime;
+            _rigidbody_player.AddForce( speed, 0f, 0f, ForceMode.Impulse );
         }
     }
     void removeItem( ) {
