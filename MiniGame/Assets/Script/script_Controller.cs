@@ -5,26 +5,19 @@ using UnityEditor;
 
 public class script_Controller : MonoBehaviour {
     GameObject _player_game_object;
-    GameObject _floor_game_object;
-    GameObject _front_game_object;
-    GameObject _back_game_object;
-    GameObject _right_game_object;
-    GameObject _left_game_object;
     GameObject _item_game_object;
-
-    Rigidbody _rb_player;
 
     GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab = ( GameObject )Resources.Load( data );
         return Instantiate( prefab, pos, Quaternion.identity );
     }
     void Start( ) {
+        GameObject _floor_game_object = loadPrefab( "prefab_Floor", new Vector3( 5f, 0f, 5f ) );
+        GameObject _front_game_object = loadPrefab( "prefab_FrontWall", new Vector3( 5f, 1f, 15f ) );
+        GameObject _back_game_object = loadPrefab( "prefab_BackWall", new Vector3( 5f, 1f, -5f ) );
+        GameObject _right_game_object = loadPrefab( "prefab_RightWall", new Vector3( 15f, 1f, 5f ) );
+        GameObject _left_game_object = loadPrefab( "prefab_LeftWall", new Vector3( -5f, 1f, 5f ) );
         _player_game_object = loadPrefab( "prefab_player", new Vector3( 1f, 5f, 0f ) );
-        _floor_game_object = loadPrefab( "prefab_Floor", new Vector3( 5f, 0f, 5f ) );
-        _front_game_object = loadPrefab( "prefab_FrontWall", new Vector3( 5f, 1f, 15f ) );
-        _back_game_object = loadPrefab( "prefab_BackWall", new Vector3( 5f, 1f, -5f ) );
-        _right_game_object = loadPrefab( "prefab_RightWall", new Vector3( 15f, 1f, 5f ) );
-        _left_game_object = loadPrefab( "prefab_LeftWall", new Vector3( -5f, 1f, 5f ) );
         _item_game_object = loadPrefab( "prefab_Item", new Vector3( 5f, 1f, 5f ) );
 
         _player_game_object.GetComponent<Renderer>( ).material.color = Color.red;
@@ -37,8 +30,6 @@ public class script_Controller : MonoBehaviour {
         _front_game_object.transform.Rotate( 0f, 90f, 0f );
         _back_game_object.transform.Rotate( 0f, 90f, 0f );
         _item_game_object.transform.Rotate( 0f, 0f, 45f );
-
-        _rb_player = _player_game_object.transform.GetComponent<Rigidbody>();
     }
    
     void Update( ) {
@@ -57,39 +48,37 @@ public class script_Controller : MonoBehaviour {
         _item_game_object.transform.rotation = rotate_y;
     }
     void movePlayer( ) {
-        float speed = 10f;
+        float speed = 20f * Time.deltaTime;
+        float x = 0f;
+        float z = 0f;
+        Rigidbody _rb_player = _player_game_object.transform.GetComponent<Rigidbody>( );
+
         if ( Input.GetKey( KeyCode.UpArrow ) ) {
-            speed = 20f * Time.deltaTime;
-            _rb_player.AddForce( 0f, 0f, speed, ForceMode.Impulse );
+            z += speed;
         }
         if ( Input.GetKey( KeyCode.DownArrow ) ) {
-            speed = -20f * Time.deltaTime;
-            _rb_player.AddForce( 0f, 0f, speed, ForceMode.Impulse );
+            z += -speed;
         }
         if ( Input.GetKey( KeyCode.LeftArrow ) ) {
-            speed = -20f * Time.deltaTime;
-            _rb_player.AddForce( speed, 0f, 0f, ForceMode.Impulse );
+            x += -speed;
         }
         if ( Input.GetKey( KeyCode.RightArrow ) ) {
-            speed = 20f * Time.deltaTime;
-            _rb_player.AddForce( speed, 0f, 0f, ForceMode.Impulse );
+            x += speed;
         }
+            _rb_player.AddForce( x, 0f, z, ForceMode.Impulse );
+    }
+    bool overlappedItem( ) {
+        Vector3 player_pos = _player_game_object.transform.position;
+        Vector3 item_pos = _item_game_object.transform.position;
+        float dis = Vector3.Distance( player_pos, item_pos );
+        if ( dis < 1.2f ) {
+            return true;
+        }
+        return false;
     }
     void removeItem( ) {
-        float now_pos_x = _player_game_object.transform.position.x;
-        float now_pos_z = _player_game_object.transform.position.z;
-        float item_pos_x = _item_game_object.transform.position.x;
-        float item_pos_z = _item_game_object.transform.position.z;
-        float coll_x = changePositiveNumber( item_pos_x - now_pos_x );
-        float coll_z = changePositiveNumber( item_pos_z - now_pos_z );
-        if ( coll_z <= 1.0f && coll_x <= 1.0f ) {
+        if ( overlappedItem( ) ) {
             Destroy( _item_game_object );
         }
-    }
-    float changePositiveNumber( float coll ) {
-        if ( coll < 0 ) {
-            coll *= -1f;
-        }
-        return coll;
     }
 }
