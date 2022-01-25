@@ -8,11 +8,11 @@ public class script_Controller : MonoBehaviour {
     GameObject _item_game_object;
 
     GameObject loadPrefab( string data, Vector3 pos ) {
-        GameObject prefab = ( GameObject )Resources.Load( data );
-        return Instantiate( prefab, pos, Quaternion.identity );
+        GameObject prefab_data = ( GameObject )Resources.Load( data );
+        return Instantiate( prefab_data, pos, Quaternion.identity );
     }
     void Start( ) {
-        GameObject _floor_game_object = loadPrefab( "prefab_Floor", new Vector3( 5f, 0f, 5f ) );
+        GameObject _floor_game_object = loadPrefab( "prefab_Floor", new Vector3( 5f, 0.5f, 5f ) );
         GameObject _front_game_object = loadPrefab( "prefab_FrontWall", new Vector3( 5f, 1f, 15f ) );
         GameObject _back_game_object = loadPrefab( "prefab_BackWall", new Vector3( 5f, 1f, -5f ) );
         GameObject _right_game_object = loadPrefab( "prefab_RightWall", new Vector3( 15f, 1f, 5f ) );
@@ -27,8 +27,8 @@ public class script_Controller : MonoBehaviour {
         _left_game_object.GetComponent<Renderer>( ).material.color = Color.cyan;
         _item_game_object.GetComponent<Renderer>( ).material.color = Color.yellow;
 
-        _front_game_object.transform.Rotate( 0f, 90f, 0f );
-        _back_game_object.transform.Rotate( 0f, 90f, 0f );
+        _left_game_object.transform.Rotate( 0f, 90f, 0f );
+        _right_game_object.transform.Rotate( 0f, 90f, 0f );
         _item_game_object.transform.Rotate( 0f, 0f, 45f );
     }
    
@@ -65,7 +65,7 @@ public class script_Controller : MonoBehaviour {
         if ( Input.GetKey( KeyCode.RightArrow ) ) {
             x += speed;
         }
-            _rb_player.AddForce( x, 0f, z, ForceMode.Impulse );
+        _rb_player.AddForce( x, 0f, z, ForceMode.Impulse );
     }
     bool overlappedItem( ) {
         Vector3 player_pos = _player_game_object.transform.position;
