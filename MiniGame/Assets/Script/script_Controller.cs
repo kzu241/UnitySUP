@@ -17,7 +17,7 @@ public class script_Controller : MonoBehaviour {
         GameObject _back_game_object = loadPrefab( "prefab_BackWall", new Vector3( 5f, 1f, -5f ) );
         GameObject _right_game_object = loadPrefab( "prefab_RightWall", new Vector3( 15f, 1f, 5f ) );
         GameObject _left_game_object = loadPrefab( "prefab_LeftWall", new Vector3( -5f, 1f, 5f ) );
-        _player_game_object = loadPrefab( "prefab_player", new Vector3( 1f, 5f, 0f ) );
+        _player_game_object = loadPrefab( "prefab_Player", new Vector3( 1f, 5f, 0f ) );
         _item_game_object = loadPrefab( "prefab_Item", new Vector3( 5f, 1f, 5f ) );
 
         _player_game_object.GetComponent<Renderer>( ).material.color = Color.red;
@@ -38,11 +38,11 @@ public class script_Controller : MonoBehaviour {
     }
     void processItem( ) {
         if( _item_game_object != null ){
-            moveItem( );
+            rotationItem( );
             removeItem( );
         }
     }
-	void moveItem( ) {
+	void rotationItem( ) {
         Quaternion item_rotation = Quaternion.AngleAxis( 30.0f * Time.deltaTime, Vector3.up );
         Quaternion rotate_y = item_rotation * _item_game_object.transform.rotation;
         _item_game_object.transform.rotation = rotate_y;
