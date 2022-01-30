@@ -39,11 +39,13 @@ public class script_Controller : MonoBehaviour {
     void updateItem( ) {
         if( _item_game_object != null ){
             rotationItem( );
-            checkRemoveItem( );
+            if (isOverlappedItem( ) ) {
+                removeItem();
+            }
         }
     }
 	void rotationItem( ) {
-        Quaternion vec_rotation = Quaternion.Euler( 0f, Time.time * 50f, 45f);
+        Quaternion vec_rotation = Quaternion.Euler( 0.0f, Time.time * 50.0f, 45.0f);
         _item_game_object.transform.rotation = vec_rotation;
     }
     void movePlayer( ) {
@@ -75,9 +77,7 @@ public class script_Controller : MonoBehaviour {
         }
         return false;
     }
-    void checkRemoveItem( ) {
-        if ( isOverlappedItem( ) ) {
-            Destroy( _item_game_object );
-        }
+    void removeItem( ) {
+        Destroy( _item_game_object );
     }
 }
