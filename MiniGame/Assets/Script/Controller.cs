@@ -6,6 +6,7 @@ using UnityEditor;
 public class Controller : MonoBehaviour {
     GameObject _player;
     GameObject _item;
+    GameObject _camera;
     GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab_data = ( GameObject )Resources.Load( data );
         return Instantiate( prefab_data, pos, Quaternion.identity );
@@ -18,6 +19,8 @@ public class Controller : MonoBehaviour {
         GameObject left = loadPrefab( "prefab_LeftWall", new Vector3( -5.0f, 1.0f, 5.0f ) );
         _player = loadPrefab( "prefab_Player", new Vector3( 1.0f, 5.0f, 0.0f ) );
         _item = loadPrefab( "prefab_Item", new Vector3( 5.0f, 1.5f, 5.0f ) );
+
+        _camera = GameObject.Find( "MainCamera" );
 
         _player.GetComponent<Renderer>( ).material.color = Color.red;
         front.GetComponent<Renderer>( ).material.color = Color.cyan;
@@ -48,9 +51,15 @@ public class Controller : MonoBehaviour {
         float speed = 20.0f * Time.deltaTime;
         float x = 0.0f;
         float z = 0.0f;
-        //カメラの方角を見て移動する。
+        Vector3 camera_direction = _camera.transform.forward;
+        //カメラが見ている方向を見て移動する。
+        //下はまだ途中
         if ( Input.GetKey( KeyCode.UpArrow ) ) {
-            z += speed;
+            //_player.transform.rotation = camera_direction;
+            _player.transform.rotation = Quaternion.Euler( 0f, 0f, speed );
+            float player_pos = _player.transform.rotation.z;
+            z += player_pos;
+            //z += speed;
         }
         if ( Input.GetKey( KeyCode.DownArrow ) ) {
             z += -speed;
@@ -62,14 +71,12 @@ public class Controller : MonoBehaviour {
             x += speed;
         }
         Rigidbody rb_player = _player.transform.GetComponent<Rigidbody>();
-        rb_player.AddForce( x, 0.0f, z, ForceMode.Impulse );
+        rb_player.AddForce( new Vector3( x, 0.0f, z ), ForceMode.Impulse );
     }
-	private void OnCollisionEnter( Collision collision ){
-        Destroy( _item );
-	}
 	void removeItem( ) {
         if( _item != null ){
             return;
         }
+        Destroy( _item );
     }
 }
