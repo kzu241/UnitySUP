@@ -50,19 +50,19 @@ public class Controller : MonoBehaviour {
     void updatePlayer( ) {
         float speed = 20.0f * Time.deltaTime;
         float x = 0.0f;
-        float z = 0.0f;
-        Vector3 camera_direction = _camera.transform.forward;
+        Vector3 player_vec = new Vector3( 0f, 0f, 0f );
         //カメラが見ている方向を見て移動する。
-        //下はまだ途中
+        //カメラの正面を取得する。
+        Vector3 camera_direction = _camera.transform.forward;
+        //そのカメラが見ている方向から上方向にベクトルを動かす。
         if ( Input.GetKey( KeyCode.UpArrow ) ) {
-            //_player.transform.rotation = camera_direction;
-            _player.transform.rotation = Quaternion.Euler( 0f, 0f, speed );
-            float player_pos = _player.transform.rotation.z;
-            z += player_pos;
+            player_vec += camera_direction.normalized * speed;
             //z += speed;
         }
+        //カメラの正面を取得して動かそうとしているから後ろに行くとき、カメラが空中にあるためボールも空中に浮く。
+        //Xを動かさないようにしてもいいが、そうしたら次にLeftとRightの時に積む。
         if ( Input.GetKey( KeyCode.DownArrow ) ) {
-            z += -speed;
+            player_vec += camera_direction.normalized * -speed;
         }
         if ( Input.GetKey( KeyCode.LeftArrow ) ) {
             x += -speed;
@@ -71,7 +71,7 @@ public class Controller : MonoBehaviour {
             x += speed;
         }
         Rigidbody rb_player = _player.transform.GetComponent<Rigidbody>();
-        rb_player.AddForce( new Vector3( x, 0.0f, z ), ForceMode.Impulse );
+        rb_player.AddForce( player_vec, ForceMode.Impulse );
     }
 	void removeItem( ) {
         if( _item != null ){
