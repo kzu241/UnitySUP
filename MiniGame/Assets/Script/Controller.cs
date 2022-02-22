@@ -53,22 +53,21 @@ public class Controller : MonoBehaviour {
         Vector3 player_vec = new Vector3( 0f, 0f, 0f );
         //カメラが見ている方向を見て移動する。
         //カメラの正面を取得する。
-        Vector3 camera_direction = _camera.transform.forward;
-        //そのカメラが見ている方向から上方向にベクトルを動かす。
+        Vector3 camera_forward = _camera.transform.forward;
+        Vector3 camera_right = _camera.transform.right;
+        //そのカメラが見ている方向からspeedの方向に動かす。
         if ( Input.GetKey( KeyCode.UpArrow ) ) {
-            player_vec += camera_direction.normalized * speed;
-            //z += speed;
+            player_vec += camera_forward * speed;
         }
         //カメラの正面を取得して動かそうとしているから後ろに行くとき、カメラが空中にあるためボールも空中に浮く。
-        //Xを動かさないようにしてもいいが、そうしたら次にLeftとRightの時に積む。
         if ( Input.GetKey( KeyCode.DownArrow ) ) {
-            player_vec += camera_direction.normalized * -speed;
+            player_vec += camera_forward * -speed;
         }
         if ( Input.GetKey( KeyCode.LeftArrow ) ) {
-            x += -speed;
+            player_vec += camera_right * -speed;
         }
         if ( Input.GetKey( KeyCode.RightArrow ) ) {
-            x += speed;
+            player_vec += camera_right * speed;
         }
         Rigidbody rb_player = _player.transform.GetComponent<Rigidbody>();
         rb_player.AddForce( player_vec, ForceMode.Impulse );
