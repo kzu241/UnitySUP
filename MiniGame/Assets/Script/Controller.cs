@@ -47,19 +47,15 @@ public class Controller : MonoBehaviour {
             _item.transform.rotation = vec_rotation;
         }
     }
+
     void updatePlayer( ) {
-        float speed = 20.0f * Time.deltaTime;
-        float x = 0.0f;
+        float speed = 30.0f * Time.deltaTime;
         Vector3 player_vec = new Vector3( 0f, 0f, 0f );
-        //カメラが見ている方向を見て移動する。
-        //カメラの正面を取得する。
-        Vector3 camera_forward = _camera.transform.forward;
-        Vector3 camera_right = _camera.transform.right;
-        //そのカメラが見ている方向からspeedの方向に動かす。
+        Vector3 camera_forward = Vector3.Scale( _camera.transform.forward, new Vector3( 1, 0, 1 ) );
+        Vector3 camera_right = Vector3.Scale( _camera.transform.right, new Vector3( 1, 0, 1 ) );
         if ( Input.GetKey( KeyCode.UpArrow ) ) {
             player_vec += camera_forward * speed;
         }
-        //カメラの正面を取得して動かそうとしているから後ろに行くとき、カメラが空中にあるためボールも空中に浮く。
         if ( Input.GetKey( KeyCode.DownArrow ) ) {
             player_vec += camera_forward * -speed;
         }
