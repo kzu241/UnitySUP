@@ -51,6 +51,7 @@ public class Controller : MonoBehaviour {
     void updatePlayer( ) {
         float speed = 30.0f * Time.deltaTime;
         Vector3 player_vec = new Vector3( 0.0f, 0.0f, 0.0f );
+        //Scale‚ğg‚Á‚Ä_camera‚ÌY‚ğ‚O‚É‚µ‚Ä‚¢‚éB
         Vector3 camera_forward = Vector3.Scale( _camera.transform.forward, new Vector3( 2.0f, 0.0f, 2.0f ) );
         Vector3 camera_right = Vector3.Scale( _camera.transform.right, new Vector3( 1.0f, 0.0f, 1.0f ) );
         if ( Input.GetKey( KeyCode.UpArrow ) ) {
