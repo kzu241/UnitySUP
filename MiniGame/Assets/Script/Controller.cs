@@ -5,7 +5,8 @@ using UnityEditor;
 
 public class Controller : MonoBehaviour {
     GameObject _player;
-    GameObject _item;
+    GameObject _move_delete_item;
+    GameObject _range_delete_item;
     GameObject _camera;
     GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab_data = ( GameObject )Resources.Load( data );
@@ -18,7 +19,8 @@ public class Controller : MonoBehaviour {
         GameObject right = loadPrefab( "prefab_RightWall", new Vector3( 15.0f, 1.0f, 5.0f ) );
         GameObject left = loadPrefab( "prefab_LeftWall", new Vector3( -5.0f, 1.0f, 5.0f ) );
         _player = loadPrefab( "prefab_Player", new Vector3( 1.0f, 5.0f, 0.0f ) );
-        _item = loadPrefab( "prefab_Item", new Vector3( 5.0f, 1.5f, 5.0f ) );
+        _move_delete_item = loadPrefab( "prefab_Item", new Vector3( 0.0f, 1.5f, 5.0f ) );
+        _range_delete_item = loadPrefab( "prefab_Item", new Vector3( 10.0f, 1.5f, 5.0f ) );
 
         _camera = GameObject.Find( "MainCamera" );
 
@@ -27,11 +29,14 @@ public class Controller : MonoBehaviour {
         back.GetComponent<Renderer>( ).material.color = Color.cyan;
         right.GetComponent<Renderer>( ).material.color = Color.cyan;
         left.GetComponent<Renderer>( ).material.color = Color.cyan;
-        _item.GetComponent<Renderer>( ).material.color = Color.yellow;
+        _move_delete_item.GetComponent<Renderer>( ).material.color = Color.yellow;
+        _range_delete_item.GetComponent<Renderer>().material.color = Color.yellow;
+
 
         left.transform.Rotate( 0.0f, 90.0f, 0.0f );
         right.transform.Rotate( 0.0f, 90.0f, 0.0f );
-        _item.transform.Rotate( 0.0f, 0.0f, 45.0f );
+        _move_delete_item.transform.Rotate( 0.0f, 0.0f, 45.0f );
+        _range_delete_item.transform.Rotate( 0.0f, 0.0f, 45.0f );
     }
    
     void Update( ) {
@@ -42,9 +47,10 @@ public class Controller : MonoBehaviour {
         rotateItem( );
     }
 	void rotateItem( ) {
-        if( _item != null ) {
+        if(_move_delete_item != null ) {
             Quaternion vec_rotation = Quaternion.Euler( 0.0f, Time.time * 50.0f, 45.0f );
-            _item.transform.rotation = vec_rotation;
+            _move_delete_item.transform.rotation = vec_rotation;
+            _range_delete_item.transform.rotation = vec_rotation;
         }
     }
 
@@ -70,10 +76,21 @@ public class Controller : MonoBehaviour {
         rb_player.AddForce( player_vec, ForceMode.Impulse );
     }
 
-	void removeItem( ) {
-        if( _item != null ){
+    bool sensingSpeedItem( ) {
+        if( _move_delete_item != null ){
+            //return;
+        }
+        Vector3 pos = _move_delete_item.transform.position;
+        if( pos.z > 0 || pos.x > 0 ) {
+            return true;
+        }
+        return false;
+    }
+
+	void removeItem( GameObject item ) {
+        if( item != null ) {
             return;
         }
-        Destroy( _item );
+        Destroy( item );
     }
 }
