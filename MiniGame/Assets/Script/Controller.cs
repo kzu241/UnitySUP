@@ -69,6 +69,7 @@ public class Controller : MonoBehaviour {
         Rigidbody rb_player = _player.transform.GetComponent<Rigidbody>();
         rb_player.AddForce( player_vec, ForceMode.Impulse );
     }
+
 	void removeItem( ) {
         if( _item != null ){
             return;
