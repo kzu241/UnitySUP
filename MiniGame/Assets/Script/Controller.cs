@@ -8,11 +8,19 @@ public class Controller : MonoBehaviour {
     GameObject _move_delete_item;
     GameObject _range_delete_item;
     GameObject _camera;
+
+    Vector3 first_pos;
+
+    int _timer = 0;
+    int _count = 0;
+
     GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab_data = ( GameObject )Resources.Load( data );
         return Instantiate( prefab_data, pos, Quaternion.identity );
     }
     void Start( ) {
+        Application.targetFrameRate =60;
+
         GameObject floor = loadPrefab( "prefab_Floor", new Vector3( 5.0f, 0.5f, 5.0f ) );
         GameObject front = loadPrefab( "prefab_FrontWall", new Vector3( 5.0f, 1.0f, 15.0f ) );
         GameObject back = loadPrefab( "prefab_BackWall", new Vector3( 5.0f, 1.0f, -5.0f ) );
@@ -37,19 +45,30 @@ public class Controller : MonoBehaviour {
         right.transform.Rotate( 0.0f, 90.0f, 0.0f );
         _move_delete_item.transform.Rotate( 0.0f, 0.0f, 45.0f );
         _range_delete_item.transform.Rotate( 0.0f, 0.0f, 45.0f );
+
+        first_pos = _move_delete_item.transform.position;
+        _timer = 3;
     }
-   
+
     void Update( ) {
         updateItem( );
         updatePlayer( );
     }
     void updateItem( ) {
         rotateItem( );
+        if( sensingSpeedItem( ) ) {
+            if( deleteTimeItem( ) == 0 ) {
+                removeItem( _move_delete_item );
+            }
+        }
     }
 	void rotateItem( ) {
-        if(_move_delete_item != null ) {
-            Quaternion vec_rotation = Quaternion.Euler( 0.0f, Time.time * 50.0f, 45.0f );
+        Quaternion vec_rotation = Quaternion.Euler( 0.0f, Time.time * 50.0f, 45.0f );
+        //仮。最後にどっちがいいか決めるからその時にどっちかを消す。
+        if( _move_delete_item != null ) {
             _move_delete_item.transform.rotation = vec_rotation;
+        }
+        if( _range_delete_item != null ){
             _range_delete_item.transform.rotation = vec_rotation;
         }
     }
@@ -76,19 +95,31 @@ public class Controller : MonoBehaviour {
         rb_player.AddForce( player_vec, ForceMode.Impulse );
     }
 
-    bool sensingSpeedItem( ) {
-        if( _move_delete_item != null ){
-            //return;
+    int deleteTimeItem( ) {
+        //itemが消えるまでのカウントダウン
+        _count++;
+        _count %= 60;
+        if( _count == 0 ) {
+            _timer--;
         }
-        Vector3 pos = _move_delete_item.transform.position;
-        if( pos.z > 0 || pos.x > 0 ) {
-            return true;
+        return _timer;
+    }
+
+    bool sensingSpeedItem( ) {
+        //一番最初の位置と、現在の位置を引いて、１以上ならtrue;
+        if( _move_delete_item != null ) {
+            Vector3 pos = _move_delete_item.transform.position;
+            Vector3 vector = first_pos - pos;
+            float vec = vector.magnitude;
+            if( vec > 1 ) {
+                return true;
+            }
         }
         return false;
     }
 
 	void removeItem( GameObject item ) {
-        if( item != null ) {
+        if( item == null ) {
             return;
         }
         Destroy( item );
