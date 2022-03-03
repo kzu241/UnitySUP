@@ -14,12 +14,15 @@ public class Controller : MonoBehaviour {
     int _delete_item_timer = 0;
     int _delete_timer_count = 0;
 
+    const float FOLLOW_RANGE = 20.0f;
+    const float DELETE_RANGE = 2.0f;
+
     GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab_data = ( GameObject )Resources.Load( data );
         return Instantiate( prefab_data, pos, Quaternion.identity );
     }
     void Start( ) {
-        Application.targetFrameRate =60;
+        Application.targetFrameRate = 60;
 
         GameObject floor = loadPrefab( "prefab_Floor", new Vector3( 5.0f, 0.5f, 5.0f ) );
         GameObject front = loadPrefab( "prefab_FrontWall", new Vector3( 5.0f, 1.0f, 15.0f ) );
@@ -70,7 +73,6 @@ public class Controller : MonoBehaviour {
     }
 	void rotateItem( ) {
         Quaternion vec_rotation = Quaternion.Euler( 0.0f, Time.time * 50.0f, 45.0f );
-        //仮。最後にどっちがいいか決めるからその時にどっちかを消す。
         if( _move_delete_item != null ) {
             _move_delete_item.transform.rotation = vec_rotation;
         }
@@ -97,7 +99,7 @@ public class Controller : MonoBehaviour {
         if ( Input.GetKey( KeyCode.RightArrow ) ) {
             player_vec += camera_right * speed;
         }
-        Rigidbody rb_player = _player.transform.GetComponent<Rigidbody>();
+        Rigidbody rb_player = _player.transform.GetComponent<Rigidbody>( );
         rb_player.AddForce( player_vec, ForceMode.Impulse );
     }
 
@@ -106,7 +108,7 @@ public class Controller : MonoBehaviour {
         if ( _range_delete_item != null ) {
             Vector3 distance = _range_delete_item.transform.position - _player.transform.position;
             float collision = distance.magnitude;
-            if ( collision < 2 ) {
+            if ( collision < DELETE_RANGE ) {
                 return true;
             }
         }
@@ -114,18 +116,18 @@ public class Controller : MonoBehaviour {
     }
 
     void followItem( ) {
+        //プレイヤーに向かう
         if( _range_delete_item != null ) {
             Vector3 distance = _range_delete_item.transform.position - _player.transform.position;
-            _range_delete_item.transform.position -= distance / 100;
+            _range_delete_item.transform.position -= distance / 30;
         }
     }
 
     bool sensingRange( ) {
         //ItemがPlayerの指定の範囲に入ったらtrue、入らなかったらfalse;
-        if( _range_delete_item != null ){
-            Vector3 distance = _range_delete_item.transform.position - _player.transform.position;
-            float collision = distance.magnitude;
-            if( collision < 10 ) {
+        if( _range_delete_item != null ) {
+            float magnitude = Vector3.Distance( _range_delete_item.transform.position, _player.transform.position );
+            if( magnitude < FOLLOW_RANGE ) {
                 return true;
             }
         }
@@ -143,12 +145,11 @@ public class Controller : MonoBehaviour {
     }
 
     bool sensingSpeedItem( ) {
-        //一番最初の位置と、現在の位置を引いて、１以上ならtrue;
+        //一番最初の位置と、現在の位置を引いて、2.0f以上ならtrue;
         if( _move_delete_item != null ) {
             Vector3 pos = _move_delete_item.transform.position;
-            Vector3 vector = _first_item_pos - pos;
-            float vec = vector.magnitude;
-            if( vec > 1 ) {
+            float vec = Vector3.Distance( _first_item_pos, pos );
+            if( vec > DELETE_RANGE ) {
                 return true;
             }
         }
