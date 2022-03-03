@@ -59,14 +59,15 @@ public class Controller : MonoBehaviour {
     }
     void updateItem( ) {
         rotateItem( );
-        if( sensingSpeedItem( ) ) {
-            if( deleteItemTime( ) == 0 ) {
+        if( isSensingSpeedItem( ) ) {
+            reduceDeleteTime( );
+            if( _delete_item_timer == 0 ) {
                 removeItem( _move_delete_item );
             }
         }
-        if( sensingRange( ) ){
+        if( isSensingRange( ) ){
             followItem( );
-            if( deleteRange( ) ){
+            if( isDeleteRange( ) ){
                 removeItem( _range_delete_item );
             }
         }
@@ -103,12 +104,11 @@ public class Controller : MonoBehaviour {
         rb_player.AddForce( player_vec, ForceMode.Impulse );
     }
 
-    bool deleteRange( ) {
+    bool isDeleteRange( ) {
         // ItemがPlayerの指定の範囲に入ったらtrue、入らなかったらfalse;
         if ( _range_delete_item != null ) {
-            Vector3 distance = _range_delete_item.transform.position - _player.transform.position;
-            float collision = distance.magnitude;
-            if ( collision < DELETE_RANGE ) {
+            float distance = Vector3.Distance( _range_delete_item.transform.position, _player.transform.position );
+            if ( distance < DELETE_RANGE ) {
                 return true;
             }
         }
@@ -123,28 +123,27 @@ public class Controller : MonoBehaviour {
         }
     }
 
-    bool sensingRange( ) {
+    bool isSensingRange( ) {
         //ItemがPlayerの指定の範囲に入ったらtrue、入らなかったらfalse;
         if( _range_delete_item != null ) {
-            float magnitude = Vector3.Distance( _range_delete_item.transform.position, _player.transform.position );
-            if( magnitude < FOLLOW_RANGE ) {
+            float distance = Vector3.Distance( _range_delete_item.transform.position, _player.transform.position );
+            if( distance < FOLLOW_RANGE ) {
                 return true;
             }
         }
         return false;
     }
 
-    int deleteItemTime( ) {
+    void reduceDeleteTime( ) {
         //３秒後に消えるカウントダウン
         _delete_timer_count++;
         _delete_timer_count %= 60;
         if( _delete_timer_count == 0 ) {
             _delete_item_timer--;
         }
-        return _delete_item_timer;
     }
 
-    bool sensingSpeedItem( ) {
+    bool isSensingSpeedItem( ) {
         //一番最初の位置と、現在の位置を引いて、2.0f以上ならtrue;
         if( _move_delete_item != null ) {
             Vector3 pos = _move_delete_item.transform.position;
