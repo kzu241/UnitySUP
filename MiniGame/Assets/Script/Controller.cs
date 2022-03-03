@@ -9,10 +9,10 @@ public class Controller : MonoBehaviour {
     GameObject _range_delete_item;
     GameObject _camera;
 
-    Vector3 first_pos;
+    Vector3 _first_item_pos;
 
-    int _timer = 0;
-    int _count = 0;
+    int _delete_item_timer = 0;
+    int _delete_timer_count = 0;
 
     GameObject loadPrefab( string data, Vector3 pos ) {
         GameObject prefab_data = ( GameObject )Resources.Load( data );
@@ -46,8 +46,8 @@ public class Controller : MonoBehaviour {
         _move_delete_item.transform.Rotate( 0.0f, 0.0f, 45.0f );
         _range_delete_item.transform.Rotate( 0.0f, 0.0f, 45.0f );
 
-        first_pos = _move_delete_item.transform.position;
-        _timer = 3;
+        _first_item_pos = _move_delete_item.transform.position;
+        _delete_item_timer = 3;
     }
 
     void Update( ) {
@@ -57,8 +57,14 @@ public class Controller : MonoBehaviour {
     void updateItem( ) {
         rotateItem( );
         if( sensingSpeedItem( ) ) {
-            if( deleteTimeItem( ) == 0 ) {
+            if( deleteItemTime( ) == 0 ) {
                 removeItem( _move_delete_item );
+            }
+        }
+        if( sensingRange( ) ){
+            followItem( );
+            if( deleteRange( ) ){
+                removeItem( _range_delete_item );
             }
         }
     }
@@ -95,21 +101,52 @@ public class Controller : MonoBehaviour {
         rb_player.AddForce( player_vec, ForceMode.Impulse );
     }
 
-    int deleteTimeItem( ) {
-        //itemが消えるまでのカウントダウン
-        _count++;
-        _count %= 60;
-        if( _count == 0 ) {
-            _timer--;
+    bool deleteRange( ) {
+        // ItemがPlayerの指定の範囲に入ったらtrue、入らなかったらfalse;
+        if ( _range_delete_item != null ) {
+            Vector3 distance = _range_delete_item.transform.position - _player.transform.position;
+            float collision = distance.magnitude;
+            if ( collision < 2 ) {
+                return true;
+            }
         }
-        return _timer;
+        return false;
+    }
+
+    void followItem( ) {
+        if( _range_delete_item != null ) {
+            Vector3 distance = _range_delete_item.transform.position - _player.transform.position;
+            _range_delete_item.transform.position -= distance / 100;
+        }
+    }
+
+    bool sensingRange( ) {
+        //ItemがPlayerの指定の範囲に入ったらtrue、入らなかったらfalse;
+        if( _range_delete_item != null ){
+            Vector3 distance = _range_delete_item.transform.position - _player.transform.position;
+            float collision = distance.magnitude;
+            if( collision < 10 ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    int deleteItemTime( ) {
+        //３秒後に消えるカウントダウン
+        _delete_timer_count++;
+        _delete_timer_count %= 60;
+        if( _delete_timer_count == 0 ) {
+            _delete_item_timer--;
+        }
+        return _delete_item_timer;
     }
 
     bool sensingSpeedItem( ) {
         //一番最初の位置と、現在の位置を引いて、１以上ならtrue;
         if( _move_delete_item != null ) {
             Vector3 pos = _move_delete_item.transform.position;
-            Vector3 vector = first_pos - pos;
+            Vector3 vector = _first_item_pos - pos;
             float vec = vector.magnitude;
             if( vec > 1 ) {
                 return true;
