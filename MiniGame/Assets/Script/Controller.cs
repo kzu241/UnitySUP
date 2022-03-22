@@ -13,7 +13,7 @@ public class Controller : MonoBehaviour {
 
     float _delete_timer_limit = 3.0f;
 
-    const float FOLLOW_RANGE = 20.0f;
+    const float FOLLOW_RANGE = 10.0f;
     const float DELETE_RANGE = 2.0f;
 
     GameObject loadPrefab( string data, Vector3 pos ) {
@@ -104,32 +104,29 @@ public class Controller : MonoBehaviour {
 
     bool isDeleteRange( ) {
         // ItemがPlayerの指定の範囲に入ったらtrue、入らなかったらfalse;
-        if ( _range_delete_item != null ) {
-            float distance = Vector3.Distance( _range_delete_item.transform.position, _player.transform.position );
-            if ( distance < DELETE_RANGE ) {
-                return true;
-            }
+        if ( _range_delete_item == null ) {
+            return false;
         }
-        return false;
+        float distance = Vector3.Distance( _range_delete_item.transform.position, _player.transform.position );
+        return distance < DELETE_RANGE;
     }
 
     void followItem( ) {
         //プレイヤーに向かう
-        if( _range_delete_item != null ) {
-            Vector3 distance = _range_delete_item.transform.position - _player.transform.position;
-            _range_delete_item.transform.position -= distance / 30;
+        if( _range_delete_item == null ) {
+            return;
         }
+        Vector3 distance = _range_delete_item.transform.position - _player.transform.position;
+        _range_delete_item.transform.position += -distance / 30;
     }
 
     bool isSensingRange( ) {
         //ItemがPlayerの指定の範囲に入ったらtrue、入らなかったらfalse;
-        if( _range_delete_item != null ) {
-            float distance = Vector3.Distance( _range_delete_item.transform.position, _player.transform.position );
-            if( distance < FOLLOW_RANGE ) {
-                return true;
-            }
+        if( _range_delete_item == null ) {
+            return false;
         }
-        return false;
+        float distance = Vector3.Distance( _range_delete_item.transform.position, _player.transform.position );
+        return distance < FOLLOW_RANGE;
     }
 
     void reduceDeleteTime( ) {
@@ -139,14 +136,12 @@ public class Controller : MonoBehaviour {
 
     bool isSensingSpeedItem( ) {
         //一番最初の位置と、現在の位置を引いて、2.0f以上ならtrue;
-        if( _move_delete_item != null ) {
-            Vector3 pos = _move_delete_item.transform.position;
-            float vec = Vector3.Distance( _first_item_pos, pos );
-            if( vec > DELETE_RANGE ) {
-                return true;
-            }
+        if( _move_delete_item == null ) {
+            return false;
         }
-        return false;
+        Vector3 pos = _move_delete_item.transform.position;
+        float vec = Vector3.Distance( _first_item_pos, pos );
+        return vec > DELETE_RANGE;
     }
 
 	void removeItem( GameObject item ) {
