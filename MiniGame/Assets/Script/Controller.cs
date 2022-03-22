@@ -11,8 +11,7 @@ public class Controller : MonoBehaviour {
 
     Vector3 _first_item_pos;
 
-    int _delete_item_timer = 0;
-    int _delete_timer_count = 0;
+    float _delete_timer_limit = 3.0f;
 
     const float FOLLOW_RANGE = 20.0f;
     const float DELETE_RANGE = 2.0f;
@@ -50,7 +49,6 @@ public class Controller : MonoBehaviour {
         _range_delete_item.transform.Rotate( 0.0f, 0.0f, 45.0f );
 
         _first_item_pos = _move_delete_item.transform.position;
-        _delete_item_timer = 3;
     }
 
     void Update( ) {
@@ -61,7 +59,7 @@ public class Controller : MonoBehaviour {
         rotateItem( );
         if( isSensingSpeedItem( ) ) {
             reduceDeleteTime( );
-            if( _delete_item_timer == 0 ) {
+            if( _delete_timer_limit <= 0 ) {
                 removeItem( _move_delete_item );
             }
         }
@@ -135,12 +133,8 @@ public class Controller : MonoBehaviour {
     }
 
     void reduceDeleteTime( ) {
-        //３秒後に消えるカウントダウン
-        _delete_timer_count++;
-        _delete_timer_count %= 60;
-        if( _delete_timer_count == 0 ) {
-            _delete_item_timer--;
-        }
+        //前のupdateを呼んでから３秒後に消えるカウントダウン
+        _delete_timer_limit += -Time.deltaTime;
     }
 
     bool isSensingSpeedItem( ) {
