@@ -75,7 +75,7 @@ public class Controller : MonoBehaviour {
         if( _move_delete_item != null ) {
             _move_delete_item.transform.rotation = vec_rotation;
         }
-        if( _range_delete_item != null ){
+        if( _range_delete_item != null ) {
             _range_delete_item.transform.rotation = vec_rotation;
         }
     }
